@@ -19,6 +19,7 @@ gem 'turbolinks', '~> 5'
 # gem 'jbuilder', '~> 2.7'
 gem 'devise'
 gem 'simple_form'
+gem 'devise_invitable', '~> 2.0.0'
 
 
 # Reduces boot times through caching; required in config/boot.rb

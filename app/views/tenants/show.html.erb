@@ -1,9 +1,42 @@
 <p id="notice"><%= notice %></p>
 
+<%= link_to 'Edit', edit_tenant_path(@tenant) %> |
+<%= link_to 'Back', tenants_path %>
+
 <p>
-  <strong>Name:</strong>
+  <strong>Organization:</strong>
   <%= @tenant.name %>
 </p>
 
-<%= link_to 'Edit', edit_tenant_path(@tenant) %> |
-<%= link_to 'Back', tenants_path %>
+<h3>
+  <div class="text-center">
+    Members
+    <div class="badge bg-info text-dark">
+      <%= @tenant_members.count %>
+    </div>
+  </div>
+</h3>
+<table class="table table-striped table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tenant_members.each do |tenant_member| %>
+      <tr>
+        <td><%= tenant_member.id %></td>
+        <td><%= tenant_member.email %></td>
+    <% end %>
+  </tbody>
+</table>
+<br/>
+
+<hr/>
+<%= form_tag invite_a_member_of_tenants_path, method: :get do %>
+  <%= email_field_tag 'email' %>
+  <%= submit_tag("Invite a member") %>
+<% end %>
+
+
