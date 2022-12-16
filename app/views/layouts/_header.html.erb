@@ -20,11 +20,6 @@
               <%= link_to current_user.organization.name, organization_path(current_user.organization) %>
             </li>
           <% end %>
-          <% if !current_user.organization %>
-            <li class="nav-item">
-              <%= link_to 'New Organization', new_organization_path %>
-            </li>
-          <% end %>
         </ul>
         <ul class="navbar-nav mr-right">
           <li class="nav-item dropdown">
