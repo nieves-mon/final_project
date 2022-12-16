@@ -11,7 +11,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    super
+    super do
+      @organization = @user.build_organization(params[:organization_attributes])
+      @organization.save
+    end
   end
 
   # GET /resource/edit
