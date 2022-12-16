@@ -15,14 +15,14 @@
           <li class="nav-item">
             <%= link_to "Users", users_path %>
           </li>
-          <% if current_user.tenant %>
+          <% if current_user.organization %>
             <li class="nav-item">
-              <%= link_to current_user.tenant.name, tenant_path(current_user.tenant) %>
+              <%= link_to current_user.organization.name, organization_path(current_user.organization) %>
             </li>
           <% end %>
-          <% if !current_user.tenant %>
+          <% if !current_user.organization %>
             <li class="nav-item">
-              <%= link_to 'New Tenant', new_tenant_path %>
+              <%= link_to 'New Organization', new_organization_path %>
             </li>
           <% end %>
         </ul>

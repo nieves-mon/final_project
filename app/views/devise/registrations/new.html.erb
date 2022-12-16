@@ -4,7 +4,7 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.simple_fields_for :organization do |o| %>
+    <%= f.simple_fields_for :organization, Organization.new do |o| %>
       <%= o.input :name,
                   label: "Organization Name",
                   error: "Organization name can't be blank",

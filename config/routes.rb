@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :tenants do
+  resources :organizations, except: [ :new, :create ] do
     get :invite_a_member_of, on: :collection
   end
 
