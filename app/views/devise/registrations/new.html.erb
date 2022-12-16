@@ -4,6 +4,14 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <%= f.simple_fields_for :organization do |o| %>
+      <%= o.input :name,
+                  label: "Organization Name",
+                  error: "Organization name can't be blank",
+                  required: true,
+                  autofocus: true,
+                  input_html: { autocomplete: "organization-name" }%>
+    <% end %>
     <%= f.input :email,
                 required: true,
                 autofocus: true,
