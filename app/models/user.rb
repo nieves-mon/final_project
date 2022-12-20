@@ -5,6 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :invitable
 
-  belongs_to :organization
+  acts_as_tenant :organization
   accepts_nested_attributes_for :organization
 end
