@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :set_organization
 
   def set_organization
-    current_organization = current_user.organization
+    current_organization = current_user.organization if current_user
     set_current_tenant(current_organization)
   end
 end
