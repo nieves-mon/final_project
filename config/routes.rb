@@ -14,8 +14,9 @@ Rails.application.routes.draw do
     get :invite_a_member_of, on: :collection
   end
 
-  scope "organizations" do
-    get ":id/members" => "organizations#members", as: :members
+  scope "organizations/:id" do
+    get "members" => "organizations#members", as: :members
+    resources :meetings
   end
-  
+
 end

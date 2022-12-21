@@ -1,4 +1,7 @@
-<h1><strong><%= @organization.name %> Members</strong></h1>
+<div>
+  <h1><strong><%= @organization.name %></strong></h1>
+  <h5> Members Count: <%= @organization_members.count %> </h5>
+</div>
 
 <table class="table table-striped table-bordered table-hover">
   <thead>
@@ -14,7 +17,7 @@
         <td><%= organization_member.id %></td>
         <td><%= organization_member.email %></td>
         <td>
-            <% if organization_member.confirmed_at !=nil %> Accepted <% else %> Pending <% end %>
+            <% if organization_member.invitation_accepted_at == nil %> Pending <% else %> Accepted  <% end %>
         </td>
     <% end %>
   </tbody>
