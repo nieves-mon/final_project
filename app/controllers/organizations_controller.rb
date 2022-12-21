@@ -14,13 +14,17 @@ class OrganizationsController < ApplicationController
     def invite_a_member_of
         current_organization = current_user.organization
         email = params[:email]
-        user_in_db = User.where(email: email).first
+        if email.present?
+            user_in_db = User.where(email: email).first
 
-        if user_in_db.present?
-            redirect_to users_path, alert: "email #{email} already in use"
-        elsif user_in_db.nil?
-            User.invite!({ email: email, organization: current_organization }, current_user) #devise_invitable
-            redirect_to users_path, notice: "#{email} was invited to join the organization #{current_organization.name}"
+            if user_in_db.present?
+                redirect_to users_path, alert: "email #{email} already in use"
+            elsif user_in_db.nil?
+                User.invite!({ email: email, organization: current_organization }, current_user) #devise_invitable
+                redirect_to users_path, notice: "#{email} was invited to join the organization #{current_organization.name}"
+            end
+        else
+            redirect_to root_path, alert: "No email was provided!"
         end
     end
 
