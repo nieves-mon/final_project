@@ -1,12 +1,17 @@
-<p id="notice"><%= notice %></p>
-
+<%= link_to 'Back', organizations_path %> |
 <%= link_to 'Edit', edit_organization_path(@organization) %> |
-<%= link_to 'Back', organizations_path %>
+<%= link_to 'Delete', organization_path(@organization), method: :delete, data: { confirm: 'Are you sure?' }  %> 
 
 <p>
   <strong>Organization:</strong>
   <%= @organization.name %>
 </p>
+
+<%= form_tag invite_a_member_of_organizations_path, method: :get do %>
+  <%= email_field_tag 'email' %>
+  <%= submit_tag("Invite a member") %>
+<% end %>
+<hr/>
 
 <h3>
   <div class="text-center">
@@ -32,9 +37,3 @@
   </tbody>
 </table>
 <br/>
-
-<hr/>
-<%= form_tag invite_a_member_of_organizations_path, method: :get do %>
-  <%= email_field_tag 'email' %>
-  <%= submit_tag("Invite a member") %>
-<% end %>
