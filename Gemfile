@@ -20,7 +20,7 @@ gem 'turbolinks', '~> 5'
 gem 'devise'
 gem 'simple_form'
 gem 'devise_invitable', '~> 2.0.0'
-gem 'acts_as_tenant'
+gem 'acts_as_tenant
 
 
 # Reduces boot times through caching; required in config/boot.rb
