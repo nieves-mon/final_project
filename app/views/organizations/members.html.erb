@@ -1,0 +1,21 @@
+<h1><strong><%= @organization.name %> Members</strong></h1>
+
+<table class="table table-striped table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Email</th>
+      <th>Invitation Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @organization_members.each do |organization_member| %>
+      <tr>
+        <td><%= organization_member.id %></td>
+        <td><%= organization_member.email %></td>
+        <td>
+            <% if organization_member.confirmed_at !=nil %> Accepted <% else %> Pending <% end %>
+        </td>
+    <% end %>
+  </tbody>
+</table>

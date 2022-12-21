@@ -24,6 +24,11 @@ class OrganizationsController < ApplicationController
         end
     end
 
+    def members
+        @organization = current_user.organization
+        @organization_members = @organization.users
+    end
+
     # GET /organizations/new
     # def new
     #     @organization = Organization.new
