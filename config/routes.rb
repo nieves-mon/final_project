@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  get 'static_pages/index'
   devise_for :users, :controllers => { registrations: 'users/registrations' }
 
-  get 'home/index'
-  root 'home#index'
-  get 'home/dashboard'
+  root 'static_pages#index'
+  get 'index', to: 'static_pages#index'
+
+  get 'dashboard', to: 'home#dashboard'
 
   resources :users, only: [ :index, :show ] do
     member do

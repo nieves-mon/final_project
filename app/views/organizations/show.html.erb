@@ -8,6 +8,12 @@
   <%= @organization.name %>
 </p>
 
+<%= form_tag invite_a_member_of_organizations_path, method: :get do %>
+  <%= email_field_tag 'email' %>
+  <%= submit_tag("Invite a member") %>
+<% end %>
+<hr/>
+
 <h3>
   <div class="text-center">
     Members
@@ -32,9 +38,3 @@
   </tbody>
 </table>
 <br/>
-
-<hr/>
-<%= form_tag invite_a_member_of_organizations_path, method: :get do %>
-  <%= email_field_tag 'email' %>
-  <%= submit_tag("Invite a member") %>
-<% end %>
