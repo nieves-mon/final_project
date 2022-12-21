@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   end
 
   scope "organizations/:id" do
-    get "members" => "organizations#members", as: :members
     resources :meetings
   end
 
