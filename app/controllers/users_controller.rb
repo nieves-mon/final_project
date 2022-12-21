@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  include RequireOrganization
 
   def index
     @users = User.all
