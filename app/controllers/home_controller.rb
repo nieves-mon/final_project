@@ -1,5 +1,8 @@
 class HomeController < ApplicationController
-  skip_before_action :authenticate_user!, :only => [ :index ]
-  def index
+  # skip_before_action :set_organization
+  include SetOrganization
+  include RequireOrganization
+  
+  def dashboard
   end
 end
