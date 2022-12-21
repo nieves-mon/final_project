@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  include RequireOrganization
+
+  include SetOrganization
+  include RequireOrganization #if no organization is set, access will not be allowed to whole UsersController
 
   def index
     @users = User.all
