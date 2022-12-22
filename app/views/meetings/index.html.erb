@@ -8,16 +8,16 @@
     <tr>
         <th>Title</th>
         <th>Scheduled Date</th>
-        <th>Created by</th>        
+        <th>Organized By</th>        
     </tr>
   </thead>
   <tbody>
+  <% @meetings.each do |meeting| %>
     <tr>
-    <% @meetings.each do |meeting| %>
-        <td><%= link_to meeting.title, meeting_path %></td>
+        <td><%= link_to meeting.title, meeting_path(meeting.id) %></td>
         <td><%= meeting.scheduled_date%></td>
         <td><%= current_user.organization.users.find(meeting.user_id).email %></td>
-    <% end %>
     </tr>
+  <% end %>
   </tbody>
 </table>

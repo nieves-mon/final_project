@@ -1,6 +1,7 @@
 class MeetingsController < ApplicationController
   def index
-    @meetings = Meeting.all
+    @organization = current_user.organization
+    @meetings = @organization.meetings
   end
 
   def new
@@ -19,6 +20,30 @@ class MeetingsController < ApplicationController
   end
 
   def show
+    @organization = current_user.organization
+    @meeting = @organization.meetings.find(params[:id])
+  end
+
+  def edit
+    @organization = current_user.organization
+    @meeting = @organization.meetings.find(params[:id])
+  end
+
+  def update
+    @organization = current_user.organization
+    @meeting = @organization.meetings.find(params[:id])
+    if @meeting.update(meeting_params)
+      redirect_to meetings_path, notice: "Meeting was successfully updated."
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @organization = current_user.organization
+    @meeting = @organization.meetings.find(params[:id])
+    @meeting.destroy
+    redirect_to meetings_path, notice: "Meeting was successfully deleted."
   end
 
 private

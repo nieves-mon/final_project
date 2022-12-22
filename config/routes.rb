@@ -3,7 +3,6 @@ Rails.application.routes.draw do
 
   root 'static_pages#index'
   get 'index', to: 'static_pages#index'
-
   get 'dashboard', to: 'home#dashboard'
 
   resources :users, only: [ :index, :show ] do
