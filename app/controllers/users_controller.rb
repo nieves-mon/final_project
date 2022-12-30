@@ -1,13 +1,30 @@
 class UsersController < ApplicationController
   include SetOrganization
   include RequireOrganization #if no organization is set, access will not be allowed to whole UsersController
+
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   
   def index
     @users = User.all
   end
 
   def show
-    @user = User.find(params[:id])
+  end
+
+  def edit
+  end
+
+  def update
+    if @user.update(user_params)
+        redirect_to @user, notice: 'user was successfully updated.'
+    else
+        render :edit
+    end
+  end
+
+  def destroy
+    @user.destroy
+    redirect_to users_url, notice: 'user was successfully destroyed.'
   end
 
   def resend_invitation
@@ -19,5 +36,16 @@ class UsersController < ApplicationController
       redirect_to users_path, notice: "Invitation resent to #{@user.email}"
     end
   end
+
+  private
+    
+    def set_user
+      @user = User.find(params[:id])
+    end
+
+    
+    def user_params
+      params.require(:user).permit(:email)
+    end
 
 end

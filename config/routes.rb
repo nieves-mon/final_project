@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   get 'dashboard', to: 'home#dashboard'
 
-  resources :users, only: [ :index, :show ] do
+  resources :users do
     member do
       patch :resend_invitation
     end

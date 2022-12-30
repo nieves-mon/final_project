@@ -8,7 +8,7 @@
         <h1><strong>Organization Details</strong></h1>
         <p>
           <%= link_to 'Edit', edit_organization_path(@organization) %> |
-          <%= link_to 'Delete', organizations_path, method: :destroy, data: { confirm: "Are you sure?" } %> |
+          <%= link_to 'Delete', organization_path(@organization), method: :delete, data: { confirm: 'Are you sure?' }  %>  |
           <%= link_to 'Back', organizations_path %>
         </p>
 
