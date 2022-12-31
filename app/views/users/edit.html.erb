@@ -2,23 +2,32 @@
   <div class="row d-flex justify-content-center">
     <div class="col-md-6">
       <div class="row d-flex justify-content-center border px-4 py-4 rounded-4 bg-light">
+        <h1><strong>Edit User Details</strong></h1>
+        <hr/>
+        <%= simple_form_for(@user) do |f| %>
+          <%= f.error_notification %>
+          <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-      <h1><strong>Edit User Details</strong></h1>
-      <hr/>
-      <%= simple_form_for(@user) do |f| %>
-        <%= f.error_notification %>
-        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+          <div class="form-outline mb-4">
+            <%= f.label "Email", class:"form-label" %>
+            <%= f.input_field :email, id:"form2Example1", class:"form-control" %>
+          </div>
 
-        <div class="form-outline mb-4">
-          <%= f.label "Email", class:"form-label" %>
-          <%= f.input_field :email, id:"form2Example1", class:"form-control" %>
-        </div>
-        
-        <div class="d-grid gap-2 col-6 mx-auto">
-          <%= f.button :submit, class:"btn btn-primary btn-block mb-4"  %>
-        </div>
-      <% end %>
-
+          <div class="form-group">
+            <%= f.label "Roles", class:"form-label" %>
+            <% User::ROLES.each do |role| %>
+              <label>
+                <%= f.check_box role %>
+                <%= role.to_s.humanize %>
+              </label>
+              <br>
+            <% end %>
+          </div>
+          
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <%= f.button :submit, class:"btn btn-primary btn-block mb-4"  %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
