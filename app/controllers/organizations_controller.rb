@@ -1,5 +1,6 @@
 class OrganizationsController < ApplicationController
     before_action :set_organization, only: [:show, :edit, :update, :destroy]
+    before_action :require_admin, only: [:invite_a_member_of, :edit, :update, :destroy]
 
     # GET /organizations
     def index
@@ -66,12 +67,20 @@ class OrganizationsController < ApplicationController
 
     private
         # Use callbacks to share common setup or constraints between actions.
-        def set_organization
-            @organization = Organization.find(params[:id])
-        end
+    def set_organization
+        @organization = Organization.find(params[:id])
+    end
 
-        # Only allow a list of trusted parameters through.
-        def organization_params
-            params.require(:organization).permit(:name)
+    # Only allow a list of trusted parameters through.
+    def organization_params
+        params.require(:organization).permit(:name)
+    end
+
+    def require_admin
+        if current_user.admin?
+            # allow to proceed
+        else
+            redirect_to root_path, alert: "You are not authorized to perform this action."
         end
+    end
 end

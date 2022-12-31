@@ -19,7 +19,7 @@
       <tr>
         <td><%= link_to user.id, user %></td>
         <td><%= user.email %></td>
-        <td><%= user.active_roles.join(" ") %></td>
+        <td><%= user.active_roles.join(", ") %></td>
         <td>
           <% if user.created_by_invite? %>
             <span class="badge bg-secondary">

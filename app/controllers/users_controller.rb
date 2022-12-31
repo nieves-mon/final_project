@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   include RequireOrganization #if no organization is set, access will not be allowed to whole UsersController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :require_admin, only: [:show, :edit, :update, :destroy]
+  before_action :require_admin, only: [:show, :edit, :update, :destroy, :resend_invitation]
   
   def index
     @users = User.all
