@@ -29,12 +29,19 @@ class User < ApplicationRecord
   end
 
   validate :must_have_a_role, on: :update
+  validate :must_have_an_admin
 
   private
 
   def must_have_a_role
     if self.roles.values.none?
-      errors.add(:base, "A member must have at least one role.")
+      errors.add(:base, "A member must have at least one role")
+    end
+  end
+
+  def must_have_an_admin
+    if (self.organization.users.pluck(:roles).count { |h| h["admin"] == true } == 1) && (roles_changed? && admin == false)
+      errors.add(:base, "An organization must have at least one admin.")
     end
   end
 
