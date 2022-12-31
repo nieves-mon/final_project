@@ -1,6 +1,6 @@
 class OrganizationsController < ApplicationController
     before_action :set_organization, only: [:show, :edit, :update, :destroy]
-    before_action :require_admin, only: [:invite_a_member_of, :edit, :update, :destroy]
+    before_action :require_admin, only: [:show, :invite_a_member_of, :edit, :update, :destroy]
 
     # GET /organizations
     def index
@@ -77,7 +77,7 @@ class OrganizationsController < ApplicationController
     end
 
     def require_admin
-        if current_user.admin?
+        if current_user.admin? && (current_user.organization == @organization)
             # allow to proceed
         else
             redirect_to root_path, alert: "You are not authorized to perform this action."
