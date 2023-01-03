@@ -3,7 +3,6 @@ Rails.application.routes.draw do
 
   root 'static_pages#index'
   get 'index', to: 'static_pages#index'
-
   get 'dashboard', to: 'home#dashboard'
 
   resources :users do
@@ -18,6 +17,7 @@ Rails.application.routes.draw do
 
   scope "organizations/:id" do
     resources :meetings
+    resources :projects
   end
 
 end

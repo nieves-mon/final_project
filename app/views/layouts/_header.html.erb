@@ -16,7 +16,7 @@
             <%= link_to "Members", users_path,  class: "navbar-brand text-white"  %>
           </li>
           <li class="nav-item">
-            <%= link_to "Projects", users_path,  class: "navbar-brand text-white" %>
+            <%= link_to "Projects", projects_path(current_user.organization.id),  class: "navbar-brand text-white" %>
           </li>
           <li class="nav-item">
             <%= link_to "Meetings", meetings_path(current_user.organization.id),  class: "navbar-brand text-white" %>

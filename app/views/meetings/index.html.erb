@@ -1,5 +1,5 @@
 <p>
-  <h1><strong>All Organizational Meetings</strong></h1>
+  <h1><strong><%= @organization.name %> Meetings</strong></h1>
   <%= link_to "Schedule New Meeting", new_meeting_path, class:"btn btn-primary" %>
 </p>
 
@@ -8,16 +8,16 @@
     <tr>
         <th>Title</th>
         <th>Scheduled Date</th>
-        <th>Last Update</th>
-        <th>Meeting Status</th>
+        <th>Organized By</th>        
     </tr>
   </thead>
   <tbody>
+  <% @meetings.each do |meeting| %>
     <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= link_to meeting.title, meeting_path(meeting.id) %></td>
+        <td><%= meeting.scheduled_date%></td>
+        <td><%= current_user.organization.users.find(meeting.user_id).email %></td>
     </tr>
+  <% end %>
   </tbody>
 </table>
