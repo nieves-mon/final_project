@@ -12,6 +12,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super do
+      @user.update!(admin: true) #a newly created user will have an admin role
       @organization = @user.build_organization(params[:organization_attributes])
       @organization.save
     end

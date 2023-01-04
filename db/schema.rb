@@ -64,7 +64,6 @@ ActiveRecord::Schema.define(version: 2023_01_04_025620) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "tenant_id"
     t.string "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -74,10 +73,12 @@ ActiveRecord::Schema.define(version: 2023_01_04_025620) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.bigint "organization_id"
+    t.bigint "tenant_id"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
+    t.jsonb "roles", default: {}, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
@@ -85,6 +86,7 @@ ActiveRecord::Schema.define(version: 2023_01_04_025620) do
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
     t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["roles"], name: "index_users_on_roles", using: :gin
     t.index ["tenant_id"], name: "index_users_on_tenant_id"
   end
 
