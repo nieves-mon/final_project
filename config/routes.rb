@@ -3,7 +3,6 @@ Rails.application.routes.draw do
 
   root 'static_pages#index'
   get 'index', to: 'static_pages#index'
-
   get 'dashboard', to: 'home#dashboard'
 
   resources :users do
@@ -16,8 +15,12 @@ Rails.application.routes.draw do
     get :invite_a_member_of, on: :collection
   end
 
-  scope "organizations/:id" do
-    resources :meetings
+  scope "organizations/:organization_id" do
+    resources :meetings do
+      get "/new_user" => "meetings#new_user", as: :new_user
+      post "/new_user" => "meetings#create_user"
+    end
+    resources :projects
   end
 
 end

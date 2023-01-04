@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container mt-4">
+<div class="row d-flex justify-content-center">
+<div class="col-md-6">
+<div class="row d-flex justify-content-center border px-4 py-4 rounded-4 bg-light">
+
+    <h1><strong><%= @meeting.title %></strong></h1>
+    <p>
+        <%= link_to 'Edit', edit_meeting_path(@meeting) %> |
+        <%= link_to 'Delete', meeting_path, method: :delete, data: { confirm: "Are you sure?" }, class: "task-subtitle"%>
+    </p>
+
+    <table class="table">
+        <tr>
+            <td><b>Title: </b></td>
+            <td><%= @meeting.title %></td>
+        </tr>
+
+        <tr>
+            <td><b>Additional Notes: </b></td>
+            <td><%= @meeting.body %></td>
+        </tr>
+
+        <tr>
+            <td><b>Scheduled Date:</b></td>
+            <td><%= @meeting.scheduled_date %></td>
+        </tr>
+
+        <tr>
+            <td><b>Participants:</b></td>
+            <td>
+                <% @participants.each do |participant| %>
+                <%= participant.email %><br/>
+                <% end %>
+            </td>
+        </tr>
+
+    </table>
+
+</div>
+</div>
+</div>
+</div>
