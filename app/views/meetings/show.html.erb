@@ -28,13 +28,12 @@
         </tr>
 
         <tr>
-            <td><b>Organized By:</b></td>
-            <td><%= @organization.users.find(@meeting.user_id).email %></td>
-        </tr>
-
-        <tr>
-            <td><b>Added Members:</b></td>
-            <td></td>
+            <td><b>Participants:</b></td>
+            <td>
+                <% @participants.each do |participant| %>
+                <%= participant.email %><br/>
+                <% end %>
+            </td>
         </tr>
 
     </table>
