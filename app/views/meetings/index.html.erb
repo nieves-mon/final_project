@@ -3,20 +3,52 @@
   <%= link_to "Schedule New Meeting", new_meeting_path, class:"btn btn-primary" %>
 </p>
 
+<h3>Happening Today</h3>
 <table class="table table-striped table-bordered table-hover">
-  <thead>
-    <tr>
-        <th>Title</th>
-        <th>Scheduled Date</th>
-        <th>Action</th>   
-    </tr>
-  </thead>
+<%= render "meeting_header" %>
   <tbody>
-  <% @meetings.each do |meeting| %>
+  <% @today.each do |meeting| %>
     <tr>
         <td><%= link_to meeting.title, meeting_path(meeting.organization_id,meeting.id) %></td>
         <td><%= meeting.scheduled_date%></td>
-        <td><%= link_to "Add Member", meeting_new_user_path(meeting.organization_id,meeting.id) %></td>
+        <td>
+          <%= link_to 'Edit', edit_meeting_path(meeting.organization_id,meeting.id) %> |
+          <%= link_to 'Delete', meeting_path(meeting.organization_id,meeting.id), method: :delete, data: { confirm: "Are you sure?" }, class: "task-subtitle"%>
+        </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<h3>Happening Soon</h3>
+<table class="table table-striped table-bordered table-hover">
+<%= render "meeting_header" %>
+  <tbody>
+  <% @soon.each do |meeting| %>
+    <tr>
+        <td><%= link_to meeting.title, meeting_path(meeting.organization_id,meeting.id) %></td>
+        <td><%= meeting.scheduled_date%></td>
+        <td>
+          <%= link_to 'Edit', edit_meeting_path(meeting.organization_id,meeting.id) %> |
+          <%= link_to 'Delete', meeting_path(meeting.organization_id,meeting.id), method: :delete, data: { confirm: "Are you sure?" }, class: "task-subtitle"%>
+        </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<h3>Already Happened</h3>
+<table class="table table-striped table-bordered table-hover">
+<%= render "meeting_header" %>
+  <tbody>
+  <% @overdue.each do |meeting| %>
+    <tr>
+        <td><%= link_to meeting.title, meeting_path(meeting.organization_id,meeting.id) %></td>
+        <td><%= meeting.scheduled_date%></td>
+        <td>
+          <%= link_to 'Edit', edit_meeting_path(meeting.organization_id,meeting.id) %> |
+          <%= link_to 'Delete', meeting_path(meeting.organization_id,meeting.id), method: :delete, data: { confirm: "Are you sure?" }, class: "task-subtitle"%>
+        </td>
     </tr>
   <% end %>
   </tbody>

@@ -2,6 +2,10 @@ class MeetingsController < ApplicationController
   def index
     @organization = current_user.organization
     @meetings = @organization.meetings
+    @datetoday = Date.current
+    @overdue = current_user.meetings.where('scheduled_date < ?', @datetoday)
+    @today = current_user.meetings.where('scheduled_date = ?', @datetoday)
+    @soon = current_user.meetings.where('scheduled_date > ?', @datetoday)
   end
 
   def new
@@ -27,6 +31,7 @@ class MeetingsController < ApplicationController
   def edit
     @organization = current_user.organization
     @meeting = @organization.meetings.find(params[:id])
+    @participants = @meeting.users
   end
 
   def update
