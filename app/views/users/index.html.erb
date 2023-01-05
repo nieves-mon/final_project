@@ -8,14 +8,18 @@
     <tr>
       <th>ID</th>
       <th>Email</th>
+      <th>Roles</th>
       <th>Invitation Status</th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.id %></td>
+        <td><%= link_to user.id, user %></td>
         <td><%= user.email %></td>
+        <td><%= user.active_roles.join(", ") %></td>
         <td>
           <% if user.created_by_invite? %>
             <span class="badge bg-secondary">
@@ -30,6 +34,18 @@
             <% end %>
           <% end %>
         </td>
+        <% if current_user.admin? %>
+          <td>
+            <%= link_to 'Edit', edit_user_path(user) %>
+          </td>
+          <td>
+            <%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: "Are you sure?" } %>
+          </td>
+        <% else %>
+          <td></td>
+          <td></td>
+        <% end %>
+      </tr>
     <% end %>
   </tbody>
 </table>

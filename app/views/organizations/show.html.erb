@@ -7,9 +7,11 @@
 
         <h1><strong>Organization Details</strong></h1>
         <p>
-          <%= link_to 'Edit', edit_organization_path(@organization) %> |
-          <%= link_to 'Delete', organizations_path, method: :destroy, data: { confirm: "Are you sure?" } %> |
-          <%= link_to 'Back', organizations_path %>
+          <% if current_user.admin? %>
+            <%= link_to 'Edit', edit_organization_path(@organization) %> |
+            <%= link_to 'Delete', organization_path(@organization), method: :delete, data: { confirm: 'Are you sure?' }  %> |
+          <% end %>
+          <%= link_to 'Back', root_path %>
         </p>
 
         <table class="table">
@@ -34,20 +36,22 @@
     </div>
   </div>
 </div>
-      
-<div class="container mt-4">
-  <div class="row d-flex justify-content-center">
-    <div class="col-md-6">
-      <div class="row d-flex justify-content-center border px-4 py-4 rounded-4 bg-light">
 
-      <h1><strong>Invite Members</strong></h1>
-      <hr/>
-      <%= form_tag invite_a_member_of_organizations_path, method: :get do %>
-        <%= email_field_tag 'email' %>
-        <%= submit_tag("Send Invite") %>
-      <% end %>
+<% if current_user.admin? %> 
+  <div class="container mt-4">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-6">
+        <div class="row d-flex justify-content-center border px-4 py-4 rounded-4 bg-light">
 
+        <h1><strong>Invite Members</strong></h1>
+        <hr/>
+        <%= form_tag invite_a_member_of_organizations_path, method: :get do %>
+          <%= email_field_tag 'email' %>
+          <%= submit_tag("Send Invite") %>
+        <% end %>
+
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>

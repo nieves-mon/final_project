@@ -1,5 +1,9 @@
 class OrganizationsController < ApplicationController
     before_action :set_organization, only: [:show, :edit, :update, :destroy]
+    before_action :set_organization_for_inviting, only: [:invite_a_member_of]
+    before_action :require_admin, only: [:invite_a_member_of, :edit, :update, :destroy]
+    before_action :require_member, only: [:show]
+    
 
     # GET /organizations
     def index
@@ -20,7 +24,7 @@ class OrganizationsController < ApplicationController
             if user_in_db.present?
                 redirect_to users_path, alert: "email #{email} already in use"
             elsif user_in_db.nil?
-                User.invite!({ email: email, organization: current_organization }, current_user) #devise_invitable
+                User.invite!({ email: email, organization: current_organization, employee: true }, current_user) #devise_invitable
                 redirect_to users_path, notice: "#{email} was invited to join the organization #{current_organization.name}"
             end
         else
@@ -66,12 +70,32 @@ class OrganizationsController < ApplicationController
 
     private
         # Use callbacks to share common setup or constraints between actions.
-        def set_organization
-            @organization = Organization.find(params[:id])
-        end
+    def set_organization
+        @organization = Organization.find(params[:id])
+    end
 
-        # Only allow a list of trusted parameters through.
-        def organization_params
-            params.require(:organization).permit(:name)
+    # Only allow a list of trusted parameters through.
+    def organization_params
+        params.require(:organization).permit(:name)
+    end
+
+    def require_admin
+        if current_user.admin? && (current_user.organization == @organization)
+            # allow to proceed
+        else
+            redirect_to root_path, alert: "You are not authorized to perform this action."
         end
+    end
+
+    def require_member
+        if current_user.organization == @organization
+            #allow to proceed
+        else
+            redirect_to root_path, alert: "You are not authorized to perform this action."
+        end
+    end
+
+    def set_organization_for_inviting
+        @organization = current_user.organization
+    end
 end
