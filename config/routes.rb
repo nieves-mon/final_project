@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     resources :meetings do
       get "/new_user" => "meetings#new_user", as: :new_user
       post "/new_user" => "meetings#create_user"
+      get "/delete_user" => "meetings#delete_user"
+      post "/delete_user" => "meetings#destroy_user"
     end
     resources :projects
   end

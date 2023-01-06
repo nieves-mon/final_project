@@ -9,24 +9,3 @@
 </div>
 </div>
 </div>
-
-<div class="container mt-3">
-<div class="row d-flex justify-content-center">
-<div class="col-md-6">
-<div class="border rounded-4 bg-light px-4 py-4" id="form1">
-<h1 class="fw-bold">List of Participants</h1>
-<hr/>
-
-
-<table class="table">
-<% @participants.each do |participant| %>
-<tr>
-    <td><%= participant.email %></td>
-    <td><%= link_to 'Remove', meeting_path(@meeting.organization_id,@meeting.id), method: :delete, data: { confirm: "Are you sure?" }, class: "task-subtitle"%></td>
-</tr>
-<% end %>
-</table>
-</div>
-</div>
-</div>
-</div>
