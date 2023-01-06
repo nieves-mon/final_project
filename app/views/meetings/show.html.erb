@@ -28,6 +28,11 @@
         </tr>
 
         <tr>
+            <th scope="row">Zoom Link:</th>
+            <td><%= link_to @meeting.zoom_link %></td>
+        </tr>
+
+        <tr>
             <td><b>Participants:</b></td>
             <td>
                 <% @participants.each do |participant| %>
