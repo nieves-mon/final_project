@@ -2,7 +2,7 @@
   <h1><strong>Delete Member</strong></h1>
 </p>
 
-<%= form_with(scope: @set_user_meeting, url: meeting_delete_user_path, method: 'destory_user') do |f| %>
+<%= form_with(scope: @set_user_meeting, url: meeting_delete_user_path, method: 'destroy_user') do |f| %>
   <div class="form-outline mb-4">
     <%= f.label :email, class:"form-label" %>
     <%= f.email_field :email, autofocus: true, autocomplete: "email", id:"form2Example1", class:"form-control" %>
