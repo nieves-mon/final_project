@@ -4,9 +4,10 @@ class Meeting < ApplicationRecord
   has_many :users, through: :user_meetings, dependent: :destroy
 
   def create_zoom_meeting(topic, start_time)
-    zoom_client = Zoom.new
-    response = zoom_client.meeting_create(topic: topic, user_id: Rails.application.credentials.zoom[:user_id],
-                                          settings: {start_time: start_time, join_before_host: true})
+    response = zoom_client.meeting_create(topic: topic,
+                                          user_id: Rails.application.credentials.zoom[:user_id],
+                                          settings: {join_before_host: true},
+                                          start_time: start_time.strftime('%Y-%m-%dT%H:%M:%SZ'))
     [response['join_url'], response['id']]
   end
 
@@ -17,7 +18,11 @@ class Meeting < ApplicationRecord
   end
 
   def delete_zoom_meeting(meeting_id)
-    zoom_client = Zoom.new
     zoom_client.meeting_delete(meeting_id: meeting_id)
   end
+
+  private
+    def zoom_client
+      Zoom.new
+    end
 end

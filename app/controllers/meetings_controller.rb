@@ -12,10 +12,10 @@ class MeetingsController < ApplicationController
   def create
     @organization = current_user.organization
     @meeting = @organization.meetings.build(meeting_params)
-    @meeting.save_zoom_meeting(@meeting.title, params[:scheduled_date])
+    @meeting.save_zoom_meeting(@meeting.title, @meeting.scheduled_date)
 
     if @meeting.save
-      @user_meeting = current_user.user_meetings.create(user_id:current_user.id,meeting_id:@meeting.id)
+      @user_meeting = current_user.user_meetings.create(user_id: current_user.id, meeting_id: @meeting.id)
       redirect_to meetings_path, notice: "Meeting was successfully set."
     end
   end
