@@ -15,4 +15,9 @@ class Meeting < ApplicationRecord
     _zoom_link, _zoom_id = create_zoom_meeting(meeting_topic, start_time)
     update(zoom_link: _zoom_link, zoom_id: _zoom_id)
   end
+
+  def delete_zoom_meeting(meeting_id)
+    zoom_client = Zoom.new
+    zoom_client.meeting_delete(meeting_id: meeting_id)
+  end
 end

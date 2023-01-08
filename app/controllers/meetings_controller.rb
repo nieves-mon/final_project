@@ -44,6 +44,7 @@ class MeetingsController < ApplicationController
   def destroy
     @organization = current_user.organization
     @meeting = @organization.meetings.find(params[:id])
+    @meeting.delete_zoom_meeting(@meeting.zoom_id)
     @meeting.destroy
     redirect_to meetings_path, notice: "Meeting was successfully deleted."
   end
