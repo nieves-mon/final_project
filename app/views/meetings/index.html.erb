@@ -8,15 +8,15 @@
     <tr>
         <th>Title</th>
         <th>Scheduled Date</th>
-        <th>Organized By</th>        
+        <th>Action</th>   
     </tr>
   </thead>
   <tbody>
   <% @meetings.each do |meeting| %>
     <tr>
-        <td><%= link_to meeting.title, meeting_path(meeting.id) %></td>
+        <td><%= link_to meeting.title, meeting_path(meeting.organization_id,meeting.id) %></td>
         <td><%= meeting.scheduled_date%></td>
-        <td><%= current_user.organization.users.find(meeting.user_id).email %></td>
+        <td><%= link_to "Add Member", meeting_new_user_path(meeting.organization_id,meeting.id) %></td>
     </tr>
   <% end %>
   </tbody>
