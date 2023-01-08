@@ -5,7 +5,8 @@ class Meeting < ApplicationRecord
 
   def create_zoom_meeting(topic, start_time)
     zoom_client = Zoom.new
-    response = zoom_client.meeting_create(topic: topic, user_id: Rails.application.credentials.zoom[:user_id], settings: {start_time: start_time, join_before_host: true})
+    response = zoom_client.meeting_create(topic: topic, user_id: Rails.application.credentials.zoom[:user_id],
+                                          settings: {start_time: start_time, join_before_host: true})
     response['join_url']
   end
 
