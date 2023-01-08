@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_05_120536) do
+ActiveRecord::Schema.define(version: 2023_01_08_221052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2023_01_05_120536) do
     t.datetime "updated_at", precision: 6, null: false
     t.date "scheduled_date"
     t.string "zoom_link"
+    t.integer "zoom_id"
     t.index ["organization_id"], name: "index_meetings_on_organization_id"
   end
 
