@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2023_01_08_221052) do
     t.datetime "updated_at", precision: 6, null: false
     t.date "scheduled_date"
     t.string "zoom_link"
-    t.integer "zoom_id"
+    t.bigint "zoom_id"
     t.index ["organization_id"], name: "index_meetings_on_organization_id"
   end
 
