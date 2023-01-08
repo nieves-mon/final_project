@@ -12,7 +12,7 @@ class MeetingsController < ApplicationController
   def create
     @organization = current_user.organization
     @meeting = @organization.meetings.build(meeting_params)
-    @meeting.save_zoom_link(@meeting.title)
+    @meeting.save_zoom_link(@meeting.title, params[:scheduled_date])
 
     if @meeting.save
       @user_meeting = current_user.user_meetings.create(user_id:current_user.id,meeting_id:@meeting.id)
