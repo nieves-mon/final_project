@@ -12,7 +12,7 @@ class MeetingsController < ApplicationController
   def create
     @organization = current_user.organization
     @meeting = @organization.meetings.build(meeting_params)
-    @meeting.save_zoom_meeting(@meeting.title, @meeting.body, @meeting.scheduled_date)
+    @meeting.save_zoom_meeting
 
     if @meeting.save
       @user_meeting = current_user.user_meetings.create(user_id: current_user.id, meeting_id: @meeting.id)
@@ -34,7 +34,9 @@ class MeetingsController < ApplicationController
   def update
     @organization = current_user.organization
     @meeting = @organization.meetings.find(params[:id])
+
     if @meeting.update(meeting_params)
+      @meeting.update_zoom_meeting
       redirect_to meetings_path, notice: "Meeting was successfully updated."
     else
       render :edit
@@ -44,7 +46,7 @@ class MeetingsController < ApplicationController
   def destroy
     @organization = current_user.organization
     @meeting = @organization.meetings.find(params[:id])
-    @meeting.delete_zoom_meeting(@meeting.zoom_id)
+    @meeting.delete_zoom_meeting
     @meeting.destroy
     redirect_to meetings_path, notice: "Meeting was successfully deleted."
   end

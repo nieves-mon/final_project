@@ -7,18 +7,23 @@ class Meeting < ApplicationRecord
     response = zoom_client.meeting_create(topic: topic, agenda: agenda,
                                           user_id: Rails.application.credentials.zoom[:user_id],
                                           settings: {join_before_host: true},
-                                          start_time: start_time.strftime('%Y-%m-%dT%H:%M:%SZ'))
+                                          start_time: start_time.strftime('%Y-%m-%dT%H:%M:%S'))
     [response['join_url'], response['id']]
   end
 
-  def save_zoom_meeting(meeting_topic, meeting_agenda, start_time)
+  def save_zoom_meeting
     return if zoom_link.present?
-    _zoom_link, _zoom_id = create_zoom_meeting(meeting_topic, meeting_agenda, start_time)
+    _zoom_link, _zoom_id = create_zoom_meeting(self.title, self.body, self.scheduled_date)
     update(zoom_link: _zoom_link, zoom_id: _zoom_id)
   end
 
-  def delete_zoom_meeting(meeting_id)
-    zoom_client.meeting_delete(meeting_id: meeting_id)
+  def update_zoom_meeting
+    zoom_client.meeting_update(meeting_id: self.zoom_id, topic: self.title, agenda: self.body,
+                                start_time: self.scheduled_date.strftime('%Y-%m-%dT%H:%M:%SZ'))
+  end
+
+  def delete_zoom_meeting
+    zoom_client.meeting_delete(meeting_id: self.zoom_id)
   end
 
   private
