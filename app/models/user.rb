@@ -9,7 +9,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :organization
 
   has_many :user_meetings, dependent: :destroy
-  has_many :meetings, through: :user_meetings, dependent: :destroy
+  has_many :meetings, through: :user_meetings
   has_many :projects, dependent: :destroy
   validates_uniqueness_to_tenant :email
 

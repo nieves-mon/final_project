@@ -1,7 +1,8 @@
 class Meeting < ApplicationRecord
-  belongs_to :organization
+  # belongs_to :organization
+  acts_as_tenant(:organization)
   has_many :user_meetings, dependent: :destroy
-  has_many :users, through: :user_meetings, dependent: :destroy
+  has_many :users, through: :user_meetings
 
   def create_zoom_meeting(topic, agenda, start_time)
     response = zoom_client.meeting_create(topic: topic, agenda: agenda,
