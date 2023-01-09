@@ -7,8 +7,8 @@
 
     <h1><strong><%= @meeting.title %></strong></h1>
     <p>
-        <%= link_to "Add Participant", meeting_new_user_path(@meeting.organization_id,@meeting.id) %> | 
-        <%= link_to "Delete Participant", meeting_delete_user_path(@meeting.organization_id,@meeting.id) %>
+        <%= link_to "Add Participant", new_meeting_participant_path(@meeting.organization_id,@meeting.id) %> | 
+        <%= link_to "Delete Participant", meeting_participants_delete_path(@meeting.organization_id,@meeting.id) %>
     </p>
 
     <table class="table">
