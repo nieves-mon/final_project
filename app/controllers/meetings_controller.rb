@@ -1,6 +1,9 @@
 class MeetingsController < ApplicationController
 
-  before_action :set_organization, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  include SetOrganization
+  include RequireOrganization #if no organization is set, access will not be allowed to whole UsersController
+
+  # before_action :set_organization, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -16,11 +19,11 @@ class MeetingsController < ApplicationController
   end
 
   def new
-    @meeting = @organization.meetings.build
+    @meeting = Meeting.new
   end
 
   def create
-    @meeting = @organization.meetings.build(meeting_params)
+    @meeting = Meeting.new(meeting_params)
     if @meeting.save
       @meeting.users << current_user
       redirect_to meetings_path, notice: "Meeting was successfully set."
@@ -44,12 +47,12 @@ class MeetingsController < ApplicationController
   end
 
 private
-  def set_organization
-    @organization = current_user.organization
-  end
+  # def set_organization
+  #   @organization = current_user.organization
+  # end
 
   def set_meeting
-    @meeting = @organization.meetings.find(params[:id])
+    @meeting = Meeting.find(params[:id])
   end
 
   def meeting_params

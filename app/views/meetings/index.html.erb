@@ -1,5 +1,5 @@
 <p>
-  <h1><strong><%= @organization.name %> Meetings</strong></h1>
+  <h1><strong><%= current_tenant.name %> Meetings</strong></h1>
   <%= link_to "Schedule New Meeting", new_meeting_path, class:"btn btn-primary" %>
 </p>
 
