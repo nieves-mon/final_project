@@ -7,8 +7,8 @@
 
     <h1><strong><%= @meeting.title %></strong></h1>
     <p>
-        <%= link_to 'Edit', edit_meeting_path(@meeting) %> |
-        <%= link_to 'Delete', meeting_path, method: :delete, data: { confirm: "Are you sure?" }, class: "task-subtitle"%>
+        <%= link_to "Add Participant", new_meeting_participant_path(@meeting.organization_id,@meeting.id) %> | 
+        <%= link_to "Delete Participant", meeting_participants_delete_path(@meeting.organization_id,@meeting.id) %>
     </p>
 
     <table class="table">
@@ -25,6 +25,11 @@
         <tr>
             <td><b>Scheduled Date:</b></td>
             <td><%= @meeting.scheduled_date %></td>
+        </tr>
+
+        <tr>
+            <th scope="row">Zoom Link:</th>
+            <td><%= link_to @meeting.zoom_link, @meeting.zoom_link %></td>
         </tr>
 
         <tr>
