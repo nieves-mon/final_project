@@ -1,7 +1,9 @@
 class MeetingsController < ApplicationController
+
+  before_action :set_organization, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  before_action :set_meeting, only: [:show, :edit, :update, :destroy]
+
   def index
-    @organization = current_user.organization
-    #@meetings = @organization.meetings
     @meetings = current_user.meetings
     @datetoday = Date.current
     @overdue = current_user.meetings.where('scheduled_date < ?', @datetoday)
@@ -9,13 +11,15 @@ class MeetingsController < ApplicationController
     @soon = current_user.meetings.where('scheduled_date > ?', @datetoday)
   end
 
+  def show
+    @participants = @meeting.users
+  end
+
   def new
-    @organization = current_user.organization
     @meeting = @organization.meetings.build
   end
 
   def create
-    @organization = current_user.organization
     @meeting = @organization.meetings.build(meeting_params)
     if @meeting.save
       @user_meeting = current_user.user_meetings.create(user_id:current_user.id,meeting_id:@meeting.id)
@@ -23,20 +27,10 @@ class MeetingsController < ApplicationController
     end
   end
 
-  def show
-    @organization = current_user.organization
-    @meeting = @organization.meetings.find(params[:id])
-    @participants = @meeting.users
-  end
-
   def edit
-    @organization = current_user.organization
-    @meeting = @organization.meetings.find(params[:id])
   end
 
   def update
-    @organization = current_user.organization
-    @meeting = @organization.meetings.find(params[:id])
     if @meeting.update(meeting_params)
       redirect_to meetings_path, notice: "Meeting was successfully updated."
     else
@@ -45,8 +39,6 @@ class MeetingsController < ApplicationController
   end
 
   def destroy
-    @organization = current_user.organization
-    @meeting = @organization.meetings.find(params[:id])
     @meeting.destroy
     redirect_to meetings_path, notice: "Meeting was successfully deleted."
   end
@@ -54,41 +46,54 @@ class MeetingsController < ApplicationController
   def new_user
     @organization = current_user.organization
     @meeting = @organization.meetings.find(params[:meeting_id])
-    @set_user_meeting = @meeting.user_meetings.build(meeting_id:params[:meeting_id])
+    @user = @meeting.users.build(email: params[:email])
   end
 
   def create_user
     @organization = current_user.organization
     @meeting = @organization.meetings.find(params[:meeting_id])
 
-    @user_in_meeting = @meeting.users.find_by(email: params[:user_meeting][:email])
-    @user_in_org = @organization.users.find_by(email: params[:user_meeting][:email])
+    @user_in_org = @organization.users.find_by(email: params[:user][:email])
+    @user_in_meeting = @meeting.users.find_by(email: params[:user][:email])
+
     if @user_in_meeting.nil? && @user_in_org.present?
-      @user_meeting = @user_in_org.user_meetings.create(user_id:@user_in_org.id, meeting_id: params[:meeting_id])
+      @participant = @meeting.users << @user_in_org
       redirect_to meetings_path, notice: "User successfully added as participant"
     elsif @user_in_meeting.nil? && @user_in_org.nil?
-      redirect_to meeting_new_user_path, notice: "User not a part of the organization"
+      redirect_to :meeting_new_user, notice: "User not a part of the organization"
     else
-      redirect_to meeting_new_user_path, notice: "User already a participant in the meeting"
+      redirect_to :meeting_new_user, notice: "User already a participant in the meeting"
     end
   end
 
   def delete_user
     @organization = current_user.organization
     @meeting = @organization.meetings.find(params[:meeting_id])
-    @set_user_meeting = @meeting.user_meetings.build(meeting_id:params[:meeting_id])
+    @user = @meeting.users.build(email: params[:email])
   end
 
   def destroy_user
     @organization = current_user.organization
     @meeting = @organization.meetings.find(params[:meeting_id])
-    @participant = @meeting.users.find_by(email: params[:user_meeting][:email])
-    @participant_user_meeting = @meeting.user_meetings.find_by(user_id:@participant.id)
-    @participant_user_meeting.destroy
-    redirect_to meetings_path, notice: 'Participant was successfully removed.'
+    @participant = @meeting.users.find_by(email: params[:user][:email])
+
+    if @participant.present?
+      @meeting.users.delete(@participant)
+      redirect_to meetings_path, notice: 'Participant was successfully removed.'
+    else
+      redirect_to :meeting_delete_user, notice: 'User not a meeting participant'
+    end
   end
 
 private
+  def set_organization
+    @organization = current_user.organization
+  end
+
+  def set_meeting
+    @meeting = @organization.meetings.find(params[:id])
+  end
+
   def meeting_params
     params.require(:meeting).permit(:title, :body, :scheduled_date)
   end
