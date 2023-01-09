@@ -17,7 +17,7 @@ class ParticipantsController < ApplicationController
     elsif @user_in_meeting.nil? && @user_in_org.nil?
       redirect_to :new_meeting_participant, notice: "User not a part of the organization"
     else
-      redirect_to :new_meeting_participantr, notice: "User already a participant in the meeting"
+      redirect_to :new_meeting_participant, notice: "User already a participant in the meeting"
     end
   end
 
