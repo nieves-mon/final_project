@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'static_pages#index'
   get 'index', to: 'static_pages#index'
   get 'dashboard', to: 'home#dashboard'
+  get 'projectuser', to: 'projects#projectuser'
 
   resources :users do
     member do
@@ -20,7 +21,11 @@ Rails.application.routes.draw do
       get "/new_user" => "meetings#new_user", as: :new_user
       post "/new_user" => "meetings#create_user"
     end
-    resources :projects
+    resources :projects do
+        resources :project_participants
+        get "project_participants/delete" => "project_participants#delete", as: :delete
+        post "project_participants/delete" => "participants#destroy"
+    end
   end
 
 end

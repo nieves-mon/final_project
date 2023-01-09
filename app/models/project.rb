@@ -1,4 +1,5 @@
 class Project < ApplicationRecord
   belongs_to :organization
-  has_and_belongs_to_many(:users)
+  has_many :project_participants
+  has_many :users, through: :project_participants
 end

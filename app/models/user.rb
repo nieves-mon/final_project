@@ -10,7 +10,9 @@ class User < ApplicationRecord
 
   has_many :user_meetings, dependent: :destroy
   has_many :meetings, through: :user_meetings, dependent: :destroy
-  has_many :projects, dependent: :destroy
+  
+  has_many :project_participants
+  has_many :projects, through: :project_participants
   validates_uniqueness_to_tenant :email
 
   # List of user roles
