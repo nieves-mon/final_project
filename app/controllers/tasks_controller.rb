@@ -13,9 +13,20 @@ class TasksController < ApplicationController
         @task = @project.tasks.build(task_params)
 
         if @task.save
-            redirect_to project_path(@project.organization, @project), notice: "Task was successfully created"
+            redirect_to project_task_path(@project.organization, @project, @task), notice: "Task was successfully created"
         else
             render :new
+        end
+    end
+
+    def edit
+    end
+
+    def update
+        if @task.update(task_params)
+            redirect_to project_task_path(@project.organization, @project, @task), notice: "Task was successfully edited"
+        else
+            render :edit
         end
     end
 
