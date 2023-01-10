@@ -19,6 +19,12 @@ class TasksController < ApplicationController
         end
     end
 
+    def destroy
+      @task.destroy
+      redirect_to project_path(@project.organization, @project), notice: "Task was successfully deleted."
+    end
+
+
     private
         def task_params
             params.require(:task).permit(:title, :notes, :duedate, :completed, :project_id)

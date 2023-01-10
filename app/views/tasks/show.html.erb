@@ -1,3 +1,7 @@
 <h1><%= @task.title %></h1>
+<div>
+    <%= link_to 'Edit', edit_project_task_path(@project.organization, @project, @task) %>
+    <%= link_to 'Delete', project_task_path(@project.organization, @project, @task), class: "task-subtitle", method: :delete, data: { confirm: "Are you sure?" } %>
+</div>
 <h3><%= @task.duedate %></h3>
 <p><%= @task.notes %></p>
