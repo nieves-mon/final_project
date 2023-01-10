@@ -22,6 +22,7 @@ gem 'simple_form'
 gem 'devise_invitable', '~> 2.0.0'
 gem 'acts_as_tenant'
 gem 'zoom_rb'
+gem 'active_storage_validations'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
