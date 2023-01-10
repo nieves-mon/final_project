@@ -1,9 +1,57 @@
-<h1><strong><%= @project.title %></strong></h1>
+<%= render "sidebar" %>
 
-<p>
-  <%= link_to "Add People", new_project_project_participant_path(@project.organization_id, @project.id), class:"btn btn-primary" %>
-  <%= link_to "Add Tasks", "#", class:"btn btn-primary" %>
-</p>
+<div class="mainContainer">
 
-Project project_participants
+  <h1><strong><%= @project.title %></strong></h1>
 
+  <p>
+    <%= link_to "Add People", new_project_project_participant_path(@project.organization_id, @project.id), class:"btn btn-primary" %>
+    <%= link_to "Delete People", project_project_participants_delete_path(@project.organization_id, @project.id), class:"btn btn-primary" %>
+    <%= link_to "Add Tasks", "#", class:"btn btn-primary" %>
+  </p>
+
+  <div class="infoContainer">
+    <div class="containerTitle">Project Information</div>
+    
+    <div>
+      Complete:
+      <%= @project.complete %>
+    </div>
+
+    <div>
+      Start Date:
+      <%= @project.start_date %>
+    </div>
+
+    <div>
+      End Date:
+      <%= @project.end_date %>
+    </div>
+  </div>
+
+  <div class="infoContainer">
+    <div class="containerTitle">Project Participants</div>
+    <div>
+      Project Manager
+      <%= project_lead(@project.user_id) %>
+    </div>
+
+    <div>
+
+      <% @project.users.each do |projectuser| %>
+        <div>
+          <%= projectuser.email %>
+        </div>
+        <div class="smallLink">
+          <%= link_to "Delete", project_project_participant_path(@project.organization_id,@project.id,@project.user_id),
+                method: :delete,
+                data: { confirm: "Are you sure?" } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="infoContainer">
+    <div class="containerTitle">Tasks</div>
+  </div>
+</div>

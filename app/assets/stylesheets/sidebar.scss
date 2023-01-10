@@ -1,0 +1,46 @@
+.sideBar
+    {
+        position:           fixed;
+        left:               0;
+        bottom:             0;
+        top:                100px;
+        background:         transparent;
+        width:              200px;
+    }
+
+
+.sideLinks
+    {
+        background-color:   #8064B4;
+        color:              white;
+        font-size:          15px;
+        font-weight:        bold;
+        display:            flex;
+        flex-direction:     column;
+        padding-left:       50px;
+        margin-top:         20px;
+        height:             80px;
+        align-items:        center;
+        text-align:         center;
+        border-top-right-radius: 10px;  
+        border-bottom-right-radius: 10px;  
+    }
+
+.textCount {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.count {
+    font-size: 20px;
+    margin-top: 10px;
+    text-align: left;
+}
+    
+.sideBar a:visited {
+    color:             red;
+    }
+
+.sideBar a:active {
+    color:              white;
+    }

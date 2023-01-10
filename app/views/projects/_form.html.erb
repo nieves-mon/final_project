@@ -41,6 +41,11 @@
 
   </div>
 
+  <div class="inline">
+    <%= f.check_box :complete, class: "checkbox", onchange: "this.form.submit();" %>
+    <%= f.label :complete %>
+  </div>
+
   <div class="d-grid gap-2 col-6 mx-auto">
     <%= f.submit "Submit", class:"btn btn-primary btn-block mb-4" %>
   </div>
