@@ -12,7 +12,7 @@
 
   <div class="infoContainer">
     <div class="containerTitle">Project Information</div>
-    
+
     <div>
       Complete:
       <%= @project.complete %>
@@ -53,5 +53,12 @@
 
   <div class="infoContainer">
     <div class="containerTitle">Tasks</div>
+    <div>
+      <ul>
+        <% @tasks.each do |task| %>
+          <li><%= task.title %></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>
