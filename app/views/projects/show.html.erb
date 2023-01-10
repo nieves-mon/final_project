@@ -56,7 +56,7 @@
     <div>
       <ul>
         <% @tasks.each do |task| %>
-          <li><%= task.title %></li>
+          <li><%= link_to task.title, project_task_path(task.project.organization, task.project, task) %></li>
         <% end %>
       </ul>
     </div>
