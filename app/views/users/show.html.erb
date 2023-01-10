@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container mt-4">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+      <div class="row d-flex justify-content-center border px-4 py-4 rounded-4 bg-light">
+
+        <h1><strong>Member Details</strong></h1>
+        <p>
+          <%= link_to 'Edit', edit_user_path(@user) %> |
+          <%= link_to 'Delete', user_path(@user), method: :delete, data: { confirm: "Are you sure?" } %> |
+          <%= link_to 'Back', users_path %>
+        </p>
+
+        <table class="table">
+          <tr>
+            <td><b>ID:</b></td>
+            <td><%= @user.id %></td>
+          </tr>
+
+          <tr>
+            <td><b>Email:</b></td>
+            <td><%= @user.email %></td>
+          </tr>
+
+          <tr>
+            <td><b>Created at:</b></td>
+            <td><%= @user.created_at %></td>
+          </tr>
+
+        </table>
+        
+      </div>
+    </div>
+  </div>
+</div>

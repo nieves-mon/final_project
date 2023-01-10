@@ -1,0 +1,35 @@
+<%= form_with model: @meeting do |f| %>
+
+<div class="form-outline mb-4">
+    <%= f.label "Discussion Topic", class: "form-label" %>
+    <%= f.text_field :title, id:"form2Example2", class:"form-control" %>
+  
+    <% @meeting.errors.full_messages_for(:email).each do |message| %>
+      <div class="error-msg" style="color:red;"><%= message %></div>
+    <% end %>
+
+</div>
+
+<div class="form-outline mb-4">
+    <%= f.label "Notes", class: "form-label" %>
+    <%= f.text_area :body, :rows => 6, id:"form2Example2", class:"form-control" %>
+    
+    <% @meeting.errors.full_messages_for(:password).each do |message| %>
+      <div class="error-msg" style="color:red;"><%= message %></div>
+    <% end %>
+
+</div>
+
+<div class="form-outline mb-4">
+    <%= f.label :scheduled_date, class: "form-label" %>
+    <%= f.date_field :scheduled_date, id:"form2Example2", class:"form-control" %>
+      <% @meeting.errors.full_messages_for(:scheduled_date).each do |message| %>
+        <div class="error-msg"><%= message %></div>
+      <% end %>
+</div>
+
+<div class="d-grid gap-2 col-6 mx-auto">
+    <%= f.submit "Submit", class:"btn btn-primary btn-block mb-4" %>
+</div>
+
+<% end %>

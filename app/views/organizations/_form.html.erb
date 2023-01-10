@@ -1,0 +1,13 @@
+<%= simple_form_for(@organization) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-outline mb-4">
+    <%= f.label "Organization Name", class:"form-label" %>
+    <%= f.input_field :name, id:"form2Example1", class:"form-control" %>
+  </div>
+  
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <%= f.button :submit, class:"btn btn-primary btn-block mb-4"  %>
+  </div>
+<% end %>
