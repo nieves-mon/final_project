@@ -29,6 +29,17 @@
         <% end %>
     </div>
 
+    <div class="form-outline input-group mb-3">
+        <div class="input-group-text">
+            <%= f.check_box :completed, id:"form2Example2", class: "form-check-input mt-0"%>
+        </div>
+        <%= f.label :completed, "Completed?", class: "form-control" %>
+
+        <% task.errors.full_messages_for(:completed).each do |message| %>
+            <div class="error-msg" style="color:red;"><%= message %></div>
+        <% end %>
+    </div>
+
     <div class="d-grid gap-2 col-6 mx-auto">
         <%= f.submit "Submit", class:"btn btn-primary btn-block mb-4" %>
     </div>
