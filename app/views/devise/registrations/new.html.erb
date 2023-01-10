@@ -11,7 +11,9 @@
                   required: true,
                   autofocus: true,
                   input_html: { autocomplete: "organization-name" }%>
+      <%= o.input :logo %>
     <% end %>
+    <br>
     <%= f.input :email,
                 required: true,
                 autofocus: true,

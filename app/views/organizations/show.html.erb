@@ -21,6 +21,15 @@
           </tr>
 
           <tr>
+            <td><b>Logo:</b></td>
+            <td>
+            <% if @organization.logo.attached? %>
+              <%= image_tag @organization.logo, size: "50x50" %>
+            <% end %>
+            </td>
+          </tr>
+
+          <tr>
             <td><b>No. of Members:</b></td>
             <td><%= @organization_members.count %> members</td>
           </tr>
