@@ -47,6 +47,7 @@ class MeetingsController < ApplicationController
   def destroy
     @meeting.delete_zoom_meeting
     @meeting.destroy
+    current_user.update!(manager: false)
     redirect_to meetings_path, notice: "Meeting was successfully deleted."
   end
 
