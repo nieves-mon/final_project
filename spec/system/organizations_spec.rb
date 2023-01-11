@@ -32,14 +32,14 @@ RSpec.describe "Organizations", type: :system do
         end
 
         it 'lets you delete organization' do
-            expect(admin_account.admin).to eq(true)
+            expect(admin_account.roles).to include("admin"=>true)
             admin_login(admin_account)
             visit organization_path(organization)
             expect { click_on 'Delete' }.to change(Organization, :count).by(-1)
         end
 
         it 'lets you show members of the organization' do
-            expect(admin_account.admin).to eq(true)
+            expect(admin_account.roles).to include("admin"=>true)
             admin_login(admin_account)
             visit users_path(organization)
             expect(page).to have_content(organization.users.count)
@@ -56,14 +56,14 @@ RSpec.describe "Organizations", type: :system do
         # end
 
         it 'lets you remove members in the organization' do
-            expect(admin_account.admin).to eq(true)
+            expect(admin_account.roles).to include("admin"=>true)
             admin_login(admin_account)
             visit user_path(user)
             expect { click_on 'Delete' }.to change(User, :count).by(-1)
         end
 
         it 'lets you invite members in the organization' do
-            expect(admin_account.admin).to eq(true)
+            expect(admin_account.roles).to include("admin"=>true)
             admin_login(admin_account)
             visit organization_path(organization)
             expect(page).to have_content('Invite Members')

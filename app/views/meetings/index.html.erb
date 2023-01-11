@@ -11,8 +11,8 @@
         <td><%= link_to meeting.title, meeting_path(meeting.organization_id,meeting.id) %></td>
         <td><%= meeting.scheduled_date%></td>
         <td>
-          <%= link_to 'Edit', edit_meeting_path(meeting.organization_id,meeting.id) %> |
-          <%= link_to 'Delete', meeting_path(meeting.organization_id,meeting.id), method: :delete, data: { confirm: "Are you sure?" }, class: "task-subtitle"%>
+          <%= link_to "Add Participant", new_meeting_participant_path(meeting.organization_id,meeting.id) %> | 
+          <%= link_to "Delete Participant", meeting_participants_delete_path(meeting.organization_id,meeting.id) %>
         </td>
     </tr>
   <% end %>
