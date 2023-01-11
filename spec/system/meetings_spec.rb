@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Organizations", type: :system do
+RSpec.describe "Meetings", type: :system do
     before do
         driven_by(:rack_test)
     end
@@ -19,16 +19,16 @@ RSpec.describe "Organizations", type: :system do
         user = FactoryBot.create(:user, organization: organization)
         meeting = FactoryBot.create(:meeting, organization: organization)
 
-        # it 'lets you create a meeting' do
-        #     expect(admin_account.roles).to include("admin"=>true)
-        #     admin_login(user)
-        #     visit new_meeting_path(organization)
-        #     expect(page).to have_content("New Meeting")
-        #     fill_in 'meeting[title]', with: 'sample@test.com'
-        #     fill_in 'meeting[body]', with: 'sample'
-        #     fill_in 'meeting[scheduled_date]', with: 'sample'
-        #     click_on 'Submit'
-        # end
+        it 'lets you create a meeting' do
+            expect(admin_account.roles).to include("admin"=>true)
+            admin_login(user)
+            visit new_meeting_path(organization)
+            expect(page).to have_content("New Meeting")
+            fill_in 'meeting[title]', with: 'New Meeting'
+            fill_in 'meeting[body]', with: 'Meeting Body'
+            fill_in 'meeting[scheduled_date]', with: Date.today
+            click_on 'Submit'
+        end
 
         it 'lets you show meeting details' do
             expect(admin_account.roles).to include("admin"=>true)
@@ -40,10 +40,11 @@ RSpec.describe "Organizations", type: :system do
         # it 'lets you edit meeting details' do
         #     expect(admin_account.roles).to include("admin"=>true)
         #     user_login(user)
-        #     visit edit_meeting_path(meeting.organization_id,meeting.id)
+        #     visit edit_meeting_path(meeting.organization_id,meeting.id,meeting.zoom_id)
         #     expect(page).to have_content('Edit Meeting Details')
         #     fill_in 'meeting[title]', with: 'Edited Title'
         #     fill_in 'meeting[body]', with: 'Edited Body'
+        #     fill_in 'meeting[scheduled_date]', with: Date.today
         #     click_on 'Submit'
         #     expect(page).to have_content('Meeting was successfully updated.')
         # end
@@ -51,7 +52,7 @@ RSpec.describe "Organizations", type: :system do
         # it 'lets you delete meeting details' do
         #     expect(admin_account.roles).to include("admin"=>true)
         #     user_login(user)
-        #     visit meeting_path(meeting.organization_id,meeting.id)
+        #     visit meeting_path(meeting.organization_id,meeting.id,)
         #     expect(page).to have_content(meeting.title)
         #     click_on 'Delete'
         #     expect(page).to have_content('Meeting was successfully deleted.')
