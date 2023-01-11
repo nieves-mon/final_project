@@ -4,6 +4,8 @@ class MeetingsController < ApplicationController
 
   # before_action :set_organization, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
+  before_action :require_manager, only: [:edit, :update, :destroy]
+  before_action :require_member, only: [:show]
 
   def index
     @meetings = current_user.meetings
@@ -68,6 +70,22 @@ private
 
   def meeting_params
     params.require(:meeting).permit(:title, :body, :scheduled_date)
+  end
+
+  def require_manager
+    if current_user.manager? && @meeting.users.include?(current_user)
+        # allow to proceed
+    else
+        redirect_to meetings_path, alert: "You are not authorized to perform this action."
+    end
+  end
+
+  def require_member
+    if @meeting.users.include?(current_user)
+        #allow to proceed
+    else
+        redirect_to meetings_path, alert: "You are not authorized to perform this action."
+    end
   end
 
 end
