@@ -23,6 +23,7 @@ class TasksController < ApplicationController
     end
 
     def update
+        byebug
         if @task.update(task_params)
             redirect_to project_task_path(@project.organization, @project, @task), notice: "Task was successfully edited"
         else
@@ -38,7 +39,7 @@ class TasksController < ApplicationController
 
     private
         def task_params
-            params.require(:task).permit(:title, :notes, :duedate, :completed, :project_id)
+            params.require(:task).permit(:title, :notes, :duedate, :completed, :user_id)
         end
 
         def set_project

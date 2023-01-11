@@ -29,6 +29,17 @@
         <% end %>
     </div>
 
+    <div class="form-outline input-group mb-4">
+        <div class="input-group-text">
+            <%= f.label :user_id, "Assign to:", class: "form-label my-0" %>
+        </div>
+        <%= f.select :user_id,  @project.users.reduce({}) { |hash, user| hash[user.email] = user.id; hash; }, {} , class: 'form-select' %>
+
+        <% task.errors.full_messages_for(:user_id).each do |message| %>
+            <div class="error-msg" style="color:red;"><%= message %></div>
+        <% end %>
+    </div>
+
     <div class="form-outline input-group mb-3">
         <div class="input-group-text">
             <%= f.check_box :completed, id:"form2Example2", class: "form-check-input mt-0"%>
