@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_10_095036) do
+ActiveRecord::Schema.define(version: 2023_01_11_090753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2023_01_10_095036) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.date "scheduled_date"
+    t.string "zoom_link"
+    t.bigint "zoom_id"
     t.index ["organization_id"], name: "index_meetings_on_organization_id"
   end
 
@@ -50,6 +52,19 @@ ActiveRecord::Schema.define(version: 2023_01_10_095036) do
     t.boolean "complete", default: false
     t.index ["organization_id"], name: "index_projects_on_organization_id"
     t.index ["user_id"], name: "index_projects_on_user_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.string "title"
+    t.text "notes"
+    t.boolean "completed"
+    t.date "duedate"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "assignee_id"
+    t.index ["assignee_id"], name: "index_tasks_on_assignee_id"
+    t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 
   create_table "tenants", force: :cascade do |t|
@@ -103,6 +118,8 @@ ActiveRecord::Schema.define(version: 2023_01_10_095036) do
   add_foreign_key "meetings", "organizations"
   add_foreign_key "projects", "organizations"
   add_foreign_key "projects", "users"
+  add_foreign_key "tasks", "projects"
+  add_foreign_key "tasks", "users", column: "assignee_id"
   add_foreign_key "user_meetings", "meetings"
   add_foreign_key "users", "organizations"
   add_foreign_key "users", "tenants"
