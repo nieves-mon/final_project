@@ -25,6 +25,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new(meeting_params)
 
     if @meeting.save
+      current_user.update!(manager: true) #anyone who creates a meeting will become its manager
       @meeting.save_zoom_meeting
       @meeting.users << current_user
       redirect_to meetings_path, notice: "Meeting was successfully set."

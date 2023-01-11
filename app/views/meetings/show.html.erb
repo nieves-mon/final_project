@@ -36,7 +36,7 @@
             <td><b>Participants:</b></td>
             <td>
                 <% @participants.each do |participant| %>
-                <%= participant.email %><br/>
+                <%= participant.email %><span class="badge bg-info"><%= participant.active_roles.join(", ") %></span><br/>
                 <% end %>
             </td>
         </tr>
