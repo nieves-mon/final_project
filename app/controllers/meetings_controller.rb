@@ -1,38 +1,45 @@
 class MeetingsController < ApplicationController
+  include SetOrganization
+  include RequireOrganization #if no organization is set, access will not be allowed to whole UsersController
+
+  # before_action :set_organization, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  before_action :set_meeting, only: [:show, :edit, :update, :destroy]
+  before_action :require_manager, only: [:edit, :update, :destroy]
+  before_action :require_member, only: [:show]
+
   def index
-    @organization = current_user.organization
-    @meetings = @current_user.meetings
+    @meetings = current_user.meetings
+    @datetoday = Date.current
+    @overdue = current_user.meetings.where('scheduled_date < ?', @datetoday)
+    @today = current_user.meetings.where('scheduled_date = ?', @datetoday)
+    @soon = current_user.meetings.where('scheduled_date > ?', @datetoday)
+  end
+
+  def show
+    @participants = @meeting.users
   end
 
   def new
-    @organization = current_user.organization
-    @meeting = @organization.meetings.build
+    @meeting = Meeting.new
   end
 
   def create
-    @organization = current_user.organization
-    @meeting = @organization.meetings.build(meeting_params)
+    @meeting = Meeting.new(meeting_params)
+
     if @meeting.save
-      @user_meeting = current_user.user_meetings.create(user_id:current_user.id,meeting_id:@meeting.id)
+      current_user.update!(manager: true) #anyone who creates a meeting will become its manager
+      @meeting.save_zoom_meeting
+      @meeting.users << current_user
       redirect_to meetings_path, notice: "Meeting was successfully set."
     end
   end
 
-  def show
-    @organization = current_user.organization
-    @meeting = @organization.meetings.find(params[:id])
-    @participants = @meeting.users
-  end
-
   def edit
-    @organization = current_user.organization
-    @meeting = @organization.meetings.find(params[:id])
   end
 
   def update
-    @organization = current_user.organization
-    @meeting = @organization.meetings.find(params[:id])
     if @meeting.update(meeting_params)
+      @meeting.update_zoom_meeting
       redirect_to meetings_path, notice: "Meeting was successfully updated."
     else
       render :edit
@@ -40,9 +47,9 @@ class MeetingsController < ApplicationController
   end
 
   def destroy
-    @organization = current_user.organization
-    @meeting = @organization.meetings.find(params[:id])
+    @meeting.delete_zoom_meeting
     @meeting.destroy
+    current_user.update!(manager: false)
     redirect_to meetings_path, notice: "Meeting was successfully deleted."
   end
 
@@ -52,26 +59,33 @@ class MeetingsController < ApplicationController
     @set_user_meeting = @meeting.user_meetings.build(meeting_id:params[:meeting_id])
   end
 
-  def create_user
-    @organization = current_user.organization
-    @meeting = @organization.meetings.find(params[:meeting_id])
+private
+  # def set_organization
+  #   @organization = current_user.organization
+  # end
 
-    @user_in_meeting = @meeting.users.where(email: params[:user_meeting][:email]).first
-    @user_in_org = @organization.users.where(email: params[:user_meeting][:email]).first
-    if @user_in_meeting.nil? && @user_in_org.present?
-      @user_meeting = @user_in_org.user_meetings.create(user_id:@user_in_org.id, meeting_id: params[:meeting_id])
-      redirect_to meetings_path, notice: "User successfully added as participant"
-    elsif @user_in_meeting.nil? && @user_in_org.nil?
-      redirect_to meeting_new_user_path, notice: "User not a part of the organization"
-    else
-      redirect_to meeting_new_user_path, notice: "User already a participant in the meeting"
-    end
-
+  def set_meeting
+    @meeting = Meeting.find(params[:id])
   end
 
-private
   def meeting_params
     params.require(:meeting).permit(:title, :body, :scheduled_date)
+  end
+
+  def require_manager
+    if current_user.manager? && @meeting.users.include?(current_user)
+        # allow to proceed
+    else
+        redirect_to meetings_path, alert: "You are not authorized to perform this action."
+    end
+  end
+
+  def require_member
+    if @meeting.users.include?(current_user)
+        #allow to proceed
+    else
+        redirect_to meetings_path, alert: "You are not authorized to perform this action."
+    end
   end
 
 end

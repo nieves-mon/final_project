@@ -13,10 +13,11 @@ class User < ApplicationRecord
   
   has_many :project_participants
   has_many :projects, through: :project_participants
+  
   validates_uniqueness_to_tenant :email
 
   # List of user roles
-  ROLES = [:admin, :employee]
+  ROLES = [:admin, :manager]
 
   # JSON column to store roles
   store_accessor :roles, *ROLES
@@ -33,8 +34,8 @@ class User < ApplicationRecord
     ROLES.select { |role| send(:"#{role}?") }.compact
   end
 
-  validate :must_have_a_role, on: :update
-  validate :must_have_an_admin
+  # validate :must_have_a_role, on: :update
+  # validate :must_have_an_admin
 
   private
 
