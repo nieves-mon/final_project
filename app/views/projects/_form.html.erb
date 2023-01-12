@@ -19,6 +19,32 @@
     <% end %>
 
   </div>
+  
+
+  Project Schedule
+  
+  <div class="form-outline mb-4">
+    <%= f.label :start_date, class: "form-label" %>
+    <%= f.date_field :start_date, id:"form2Example2", class:"form-control" %>
+    <% @project.errors.full_messages_for(:password).each do |message| %>
+      <div class="error-msg" style="color:red;"><%= message %></div>
+    <% end %>
+
+  </div>
+
+  <div class="form-outline mb-4">
+    <%= f.label :end_date, class: "form-label" %>
+    <%= f.date_field :end_date, id:"form2Example2", class:"form-control" %>
+    <% @project.errors.full_messages_for(:password).each do |message| %>
+      <div class="error-msg" style="color:red;"><%= message %></div>
+    <% end %>
+
+  </div>
+
+  <div class="inline">
+    <%= f.check_box :complete, class: "checkbox", onchange: "this.form.submit();" %>
+    <%= f.label :complete %>
+  </div>
 
   <div class="d-grid gap-2 col-6 mx-auto">
     <%= f.submit "Submit", class:"btn btn-primary btn-block mb-4" %>

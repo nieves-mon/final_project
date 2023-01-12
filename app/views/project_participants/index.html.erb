@@ -1,0 +1,6 @@
+<h1>Project Participants</h1>
+        
+
+<% @project.users.each do |projectuser| %>
+  <%= projectuser.email %>
+<% end %>

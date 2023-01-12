@@ -1,2 +1,85 @@
-<h1><strong><%= @project.title %></strong></h1>
+<%= render "sidebar" %>
 
+<div class="mainContainer">
+
+  <h1><strong><%= @project.title %></strong></h1>
+
+  <p>
+    <%= link_to "Add People", new_project_project_participant_path(@project.organization_id, @project.id), class:"btn btn-primary" %>
+    <%= link_to "Delete People", project_project_participants_delete_path(@project.organization_id, @project.id), class:"btn btn-primary" %>
+    <%= link_to "Add Tasks", new_project_task_path(@project.organization_id, @project.id), class:"btn btn-primary" %>
+  </p>
+
+  <div class="infoContainer">
+    <div class="containerTitle">Project Information</div>
+
+    <div>
+      Complete:
+      <%= @project.complete %>
+    </div>
+
+    <div>
+      Start Date:
+      <%= @project.start_date %>
+    </div>
+
+    <div>
+      End Date:
+      <%= @project.end_date %>
+    </div>
+  </div>
+
+  <div class="infoContainer">
+    <div class="containerTitle">Project Participants</div>
+    <div>
+      Project Manager
+      <%= project_lead(@project.user_id) %>
+    </div>
+
+    <div>
+
+      <% @project.users.each do |projectuser| %>
+        <div>
+          <%= projectuser.email %>
+        </div>
+        <div class="smallLink">
+          <%= link_to "Delete", project_project_participant_path(@project.organization_id, @project.id, projectuser.id),
+                method: :delete,
+                data: { confirm: "Are you sure?" } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="infoContainer">
+    <div class="containerTitle">Tasks</div>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <th colspan="4">Overdue Tasks</th>
+        </tr>
+        <tr>
+          <td colspan="4"><%= render "task", tasks: @overdue_tasks %></td>
+        </tr>
+        <tr>
+          <th colspan="4">Today Tasks</th>
+        </tr>
+        <tr colspan="4">
+          <td colspan="4"><%= render "task", tasks: @today_tasks %></td>
+        </tr>
+        <tr>
+          <th colspan="4">Future Tasks</th>
+        </tr>
+        <tr colspan="4">
+          <td colspan="4"><%= render "task", tasks: @future_tasks %></td>
+        </tr>
+        <tr>
+          <th colspan="4">Completed Tasks</th>
+        </tr>
+        <tr colspan="4">
+            <td colspan="4"><%= render "task", tasks: @completed_tasks %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -24,7 +24,7 @@
           <% if user.created_by_invite? %>
             <span class="badge bg-secondary">
               Invited by
-              <%= user.invited_by %>
+              <%= user.invited_by.email %>
             </span>
             <% if user.invitation_accepted_at.present? %>
               <span class="badge bg-success">Accepted</span>

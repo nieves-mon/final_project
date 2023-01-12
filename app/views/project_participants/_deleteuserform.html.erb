@@ -1,0 +1,4 @@
+  <% @userdelete.each do |user| %>
+    <%= user.email %> 
+    <%= link_to "delete", user, method: :delete, data: { confirm: "Are you sure?" } %>
+  <% end %>

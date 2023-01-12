@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'static_pages#index'
   get 'index', to: 'static_pages#index'
   get 'dashboard', to: 'home#dashboard'
+  get 'projectuser', to: 'projects#projectuser'
 
   resources :users do
     member do
@@ -21,7 +22,15 @@ Rails.application.routes.draw do
       get "participants/delete" => "participants#delete", as: :delete
       post "participants/delete" => "participants#destroy"
     end
-    resources :projects
+    resources :projects do
+        resources :tasks, except: [ :index ]
+        resources :project_participants
+
+        #get "project_participants/delete" => "project_participants#delete", as: :delete
+        #post "project_participants/delete" => "participants#destroy"
+    end
   end
 
+  get "delete_people", to: "project_participants#delete_people"
+  delete "delete_people", to: "project_participants#delete_people"
 end

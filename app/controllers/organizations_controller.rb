@@ -24,7 +24,7 @@ class OrganizationsController < ApplicationController
             if user_in_db.present?
                 redirect_to users_path, alert: "email #{email} already in use"
             elsif user_in_db.nil?
-                User.invite!({ email: email, organization: current_organization, employee: true }, current_user) #devise_invitable
+                User.invite!({ email: email, organization: current_organization }, current_user) #devise_invitable
                 redirect_to users_path, notice: "#{email} was invited to join the organization #{current_organization.name}"
             end
         else
@@ -76,7 +76,7 @@ class OrganizationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def organization_params
-        params.require(:organization).permit(:name)
+        params.require(:organization).permit(:name, :logo)
     end
 
     def require_admin

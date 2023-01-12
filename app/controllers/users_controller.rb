@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :require_admin, only: [:show, :edit, :update, :destroy, :resend_invitation]
-  
+
   def index
     @users = User.all
   end
@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    @user.tasks.each { |task| task.unassign }
     @user.destroy
     redirect_to users_url, notice: 'user was successfully destroyed.'
   end
@@ -39,12 +40,12 @@ class UsersController < ApplicationController
   end
 
   private
-    
+
   def set_user
     @user = User.find(params[:id])
   end
 
-  
+
   def user_params
     params.require(:user).permit(:email, *User::ROLES)
   end
