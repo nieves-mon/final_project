@@ -52,3 +52,15 @@
     font-size: 20px;
     margin-bottom: 20px;
 }
+
+.field_with_errors {
+    background: initial;
+    padding: 0;
+    display: block;
+    width: 100%;
+}
+
+.error-msg {
+    color: red;
+    font-style: italic;
+}

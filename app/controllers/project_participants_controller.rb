@@ -1,5 +1,5 @@
 class ProjectParticipantsController < ApplicationController
-  
+
   before_action :set_organization, only: [:new, :create, :delete, :destroy]
   before_action :set_project, only: [:new, :create, :delete, :destroy]
   before_action :set_user, only: [:new, :delete]
@@ -23,10 +23,10 @@ class ProjectParticipantsController < ApplicationController
 
     def show
     end
-  
+
     def edit
     end
-  
+
     def update
       if @project_participant.update(project_params)
         redirect_to projects_path, notice: "Project participant was successfully updated."
@@ -34,19 +34,16 @@ class ProjectParticipantsController < ApplicationController
         render :edit
       end
     end
-  
-    def delete_people
-      @userdelete = User.joins(:projects).all
-    end
 
     def destroy
-      @project_participant = @project.users.find_by(email: params[:user][:email])
+      @project_participant = @project.users.find(params[:id])
+      @project_participant.tasks.each { |task| task.unassign }
       @project.users.delete(@project_participant)
 
-      redirect_to project_path(@project)
+      redirect_to project_path(@project.organization, @project)
     end
 
-  
+
   private
 
     def set_organization
@@ -60,5 +57,5 @@ class ProjectParticipantsController < ApplicationController
     def set_user
       @user = @project.users.build(email: params[:email])
     end
-  
+
   end

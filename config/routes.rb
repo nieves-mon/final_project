@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       post "participants/delete" => "participants#destroy"
     end
     resources :projects do
+        resources :tasks, except: [ :index ]
         resources :project_participants
 
         #get "project_participants/delete" => "project_participants#delete", as: :delete
