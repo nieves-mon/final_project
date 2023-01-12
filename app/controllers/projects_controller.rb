@@ -22,6 +22,10 @@ class ProjectsController < ApplicationController
   def show
     @organization = current_user.organization
     @project = @organization.projects.find(params[:id])
+    @overdue_tasks = @project.tasks.overdue
+    @today_tasks = @project.tasks.today
+    @future_tasks = @project.tasks.future
+    @completed_tasks = @project.tasks.completed
   end
 
   def edit

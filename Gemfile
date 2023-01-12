@@ -21,7 +21,8 @@ gem 'devise'
 gem 'simple_form'
 gem 'devise_invitable', '~> 2.0.0'
 gem 'acts_as_tenant'
-
+gem 'zoom_rb'
+gem 'active_storage_validations'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -29,6 +30,10 @@ gem 'bootsnap', '>= 1.4.4', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # RSpec for Tests
+  gem 'rspec-rails', '~> 6.0.0'
+  # factory bot
+  gem "factory_bot_rails"
 end
 
 group :development do
@@ -48,4 +53,5 @@ group :test do
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+  gem "faker"
 end
