@@ -41,7 +41,7 @@ class ProjectParticipantsController < ApplicationController
 
     def destroy
       @project_participant = @project.users.find_by(email: params[:user][:email])
-      @project.users.delete(@project_participant)
+      @project.project_participants.delete(@project_participant)
 
       redirect_to project_path(@project)
     end

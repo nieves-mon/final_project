@@ -1,0 +1,13 @@
+<%= form_with model: @project do |f| %>
+
+<div class="form-outline mb-4">
+
+    <div class="inline">
+    <%= f.check_box :complete, class: "checkbox", onchange: "this.form.submit();" %>
+    </div>
+    <div class="inline">
+    <%= f.label :complete %>
+    </div>
+
+
+<% end %>

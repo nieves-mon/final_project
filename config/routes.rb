@@ -22,13 +22,17 @@ Rails.application.routes.draw do
       post "/new_user" => "meetings#create_user"
     end
     resources :projects do
-        resources :project_participants
+        resources :project_participants do
 
-        #get "project_participants/delete" => "project_participants#delete", as: :delete
+          #get "delete_people", to: "project_participants#delete_people"
+          #delete "delete_people", to: "project_participants#delete_people"
+
+        get "project_participants" => "project_participants#delete_people", as: :delete
         #post "project_participants/delete" => "participants#destroy"
+        end
     end
   end
 
-  get "delete_people", to: "project_participants#delete_people"
-  delete "delete_people", to: "project_participants#delete_people"
+  #get "delete_people", to: "project_participants#delete_people"
+  #delete "delete_people", to: "project_participants#delete_people"
 end
