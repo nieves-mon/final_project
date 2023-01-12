@@ -7,7 +7,6 @@
   <thead>
     <tr>
         <th>Title</th>
-        <th>Organized By</th>
         <th>Actions</th>       
     </tr>
   </thead>
@@ -15,7 +14,6 @@
   <% @projects.each do |project| %>
     <tr>
         <td><%= link_to project.title, project_path(project.organization_id,project.id) %></td>
-        <td><%= current_user.organization.users.find(project.user_id).email %></td>
         <td>
           <%= link_to 'Edit', edit_project_path(project.organization_id,project.id) %> |
           <%= link_to 'Delete', project_path(project.organization_id,project.id), method: :delete, data: { confirm: "Are you sure?" }, class: "task-subtitle"%>
