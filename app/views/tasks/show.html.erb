@@ -1,8 +1,28 @@
-<h1><%= @task.title %></h1>
-<div>
-    <%= link_to 'Edit', edit_project_task_path(@project.organization, @project, @task) %>
-    <%= link_to 'Delete', project_task_path(@project.organization, @project, @task), class: "task-subtitle", method: :delete, data: { confirm: "Are you sure?" } %>
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <h4 class="m-0"><%= link_to @project.title, project_path(@project.organization, @project) %></h4>
+        <span class="fw-bold text-end">Assigned to: <%= @task.user.email %></span>
+    </div>
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <div class="card-title d-flex align-items-center">
+                <%= form_with model: @task, url: project_task_path(@project.organization, @project, @task)  do |f| %>
+                    <%= f.check_box :completed, onclick: "this.parentElement.submit();", class: "big-checkbox" %>
+                <% end %>
+                <h1 class="m-0 fw-bold"><%= @task.title %></h1>
+            </div>
+            <div>
+                <%= link_to 'Edit', edit_project_task_path(@project.organization, @project, @task), class: "card-link" %>
+                <%= link_to 'Delete', project_task_path(@project.organization, @project, @task), class: "card-link", method: :delete, data: { confirm: "Are you sure?" } %>
+            </div>
+        </div>
+        <p class="card-text fs-6 fw-semibold">Due Date: <%= @task.duedate.strftime("%a, %b %d") %></p>
+    </div>
+    <div class="card-footer fs-6">
+        <% if @task.notes.strip.empty? %>
+            No notes
+        <% else %>
+            <%= @task.notes %>
+        <% end %>
+    </div>
 </div>
-<h3><%= @task.duedate %></h3>
-<p><%= @task.notes %></p>
-<p><%= @task.user.email %></p>
