@@ -18,6 +18,9 @@
       <%= @project.complete %>
     </div>
 
+    <%= render 'completeform' %>
+
+
     <div>
       Start Date:
       <%= @project.start_date %>
@@ -35,9 +38,7 @@
       Project Manager
       <%= project_lead(@project.user_id) %>
     </div>
-
     <div>
-
       <% @project.users.each do |projectuser| %>
         <div>
           <%= projectuser.email %>
