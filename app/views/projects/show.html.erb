@@ -53,12 +53,33 @@
 
   <div class="infoContainer">
     <div class="containerTitle">Tasks</div>
-    <div>
-      <ul>
-        <% @tasks.each do |task| %>
-          <li><%= link_to task.title, project_task_path(task.project.organization, task.project, task) %></li>
-        <% end %>
-      </ul>
-    </div>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <th colspan="4">Overdue Tasks</th>
+        </tr>
+        <tr>
+          <td colspan="4"><%= render "task", tasks: @overdue_tasks %></td>
+        </tr>
+        <tr>
+          <th colspan="4">Today Tasks</th>
+        </tr>
+        <tr colspan="4">
+          <td colspan="4"><%= render "task", tasks: @today_tasks %></td>
+        </tr>
+        <tr>
+          <th colspan="4">Future Tasks</th>
+        </tr>
+        <tr colspan="4">
+          <td colspan="4"><%= render "task", tasks: @future_tasks %></td>
+        </tr>
+        <tr>
+          <th colspan="4">Completed Tasks</th>
+        </tr>
+        <tr colspan="4">
+            <td colspan="4"><%= render "task", tasks: @completed_tasks %></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
