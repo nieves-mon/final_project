@@ -61,6 +61,13 @@ ActiveRecord::Schema.define(version: 2023_01_11_044429) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "project_participants", id: false, force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "project_id"
+    t.index ["project_id"], name: "index_project_participants_on_project_id"
+    t.index ["user_id"], name: "index_project_participants_on_user_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -68,6 +75,9 @@ ActiveRecord::Schema.define(version: 2023_01_11_044429) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
+    t.date "start_date"
+    t.date "end_date"
+    t.boolean "complete", default: false
     t.index ["organization_id"], name: "index_projects_on_organization_id"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end

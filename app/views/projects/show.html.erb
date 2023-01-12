@@ -1,2 +1,53 @@
-<h1><strong><%= @project.title %></strong></h1>
+<%= render "sidebar" %>
 
+<div class="mainContainer">
+
+  <h1><strong><%= @project.title %></strong></h1>
+
+  <p>
+    <%= link_to "Add People", new_project_project_participant_path(@project.organization_id, @project.id), class:"btn btn-primary" %>
+    <%= link_to "Delete People", delete_people_path, class:"btn btn-primary" %>
+    <%= link_to "Add Tasks", "#", class:"btn btn-primary" %>
+  </p>
+
+  <div class="infoContainer">
+    <div class="containerTitle">Project Information</div>
+    
+    <div>
+      Complete:
+      <%= @project.complete %>
+    </div>
+
+    <div>
+      Start Date:
+      <%= @project.start_date %>
+    </div>
+
+    <div>
+      End Date:
+      <%= @project.end_date %>
+    </div>
+  </div>
+
+  <div class="infoContainer">
+    <div class="containerTitle">Project Participants</div>
+    <div>
+      Project Manager
+      <%= project_lead(@project.user_id) %>
+    </div>
+
+    <div>
+
+
+        <%#= render 'deleteform' %>
+        <%= render 'projectuserform' %>
+  
+    </div>
+  </div>
+
+  <div class="infoContainer">
+    <div class="containerTitle">Tasks</div>
+  </div>
+</div>
+
+<%#= undefined method `each' for #<Project id: 7, title: "basecamp", body: "hello", organization_id: 1, created_at: "2023-01-08 10:25:55.700834000 +0000", updated_at: "2023-01-08 10:25:55.700834000 +0000", user_id: 5, start_date: nil, end_date: nil, complete: false> %>

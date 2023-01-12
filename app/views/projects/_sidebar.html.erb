@@ -1,0 +1,28 @@
+<div class="sideBar">
+        <% if user_signed_in? %>
+            <div class="sideLinks">
+                <div class="textCount">Total Projects</div>
+                <div class="count">
+                <%= Project.count %>
+                </div>
+            </div>
+            <div class="sideLinks">
+                <div class="textCount">Complete</div>
+                <div class="count">
+                <%= Project.where("complete = 'true'").size %>
+                </div>
+            </div>
+            <div class="sideLinks">
+                <div class="textCount">In-progress</div>
+                <div class="count">
+                <%= Project.where("complete = 'false'").size %>
+                </div>
+            </div>
+            <div class="sideLinks">
+                <div class="textCount">Out of schedule</div>
+                <div class="count">
+                <%= Project.count %>
+                </div>
+            </div>
+        <% end %>
+</div>
