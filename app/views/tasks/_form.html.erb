@@ -29,7 +29,7 @@
 
     <div class="form-outline mb-4">
         <%= f.label :user_id, "Assign to:", class: "form-label" %>
-        <%= f.select :user_id,  @project.users.reduce({}) { |hash, user| hash[user.email] = user.id; hash; }, {prompt: "--Select One--"} , class: 'form-select' %>
+        <%= f.select :user_id,  task_assignee_options(@project), { selected: 0 }, class: 'form-select' %>
 
         <% task.errors.full_messages_for(:user_id).each do |message| %>
             <div class="error-msg"><%= message %></div>

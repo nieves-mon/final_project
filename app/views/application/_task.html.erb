@@ -8,7 +8,13 @@
             </td>
             <th scope="row"><%= link_to task.title, project_task_path(@project.organization, @project, task) %></th>
             <td><%= task.duedate.strftime("%a, %b %d") %></td>
-            <td><%= task.user.email %></td>
+            <td>
+                <% if task.user.nil? %>
+                    Not assigned yet
+                <% else %>
+                    <%= task.user.email %>
+                <% end %>
+            </td>
         </tr>
     <% end %>
 </table>

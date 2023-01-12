@@ -1,7 +1,13 @@
 <div class="card">
     <div class="card-header d-flex align-items-center justify-content-between">
         <h4 class="m-0"><%= link_to @project.title, project_path(@project.organization, @project) %></h4>
-        <span class="fw-bold text-end">Assigned to: <%= @task.user.email %></span>
+        <span class="fw-bold text-end">
+            <% if @task.user.nil? %>
+                Not assigned yet
+            <% else %>
+                Assigned to: <%= @task.user.email %>
+            <% end %>
+        </span>
     </div>
     <div class="card-body">
         <div class="d-flex justify-content-between">
