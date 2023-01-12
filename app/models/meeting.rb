@@ -3,6 +3,10 @@ class Meeting < ApplicationRecord
   acts_as_tenant(:organization)
   has_many :user_meetings, dependent: :destroy
   has_many :users, through: :user_meetings
+  
+  validates :title, presence: true, uniqueness: true
+  validates :title, length: { in: 2..20 }
+  validates :scheduled_date, presence: true
 
   def create_zoom_meeting(topic, agenda, start_time)
     response = zoom_client.meeting_create(topic: topic, agenda: agenda,
