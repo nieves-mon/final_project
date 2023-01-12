@@ -23,9 +23,12 @@ Rails.application.routes.draw do
     end
     resources :projects do
         resources :project_participants
-        get "project_participants/delete" => "project_participants#delete", as: :delete
-        post "project_participants/delete" => "participants#destroy"
+
+        #get "project_participants/delete" => "project_participants#delete", as: :delete
+        #post "project_participants/delete" => "participants#destroy"
     end
   end
 
+  get "delete_people", to: "project_participants#delete_people"
+  delete "delete_people", to: "project_participants#delete_people"
 end

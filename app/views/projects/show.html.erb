@@ -6,7 +6,7 @@
 
   <p>
     <%= link_to "Add People", new_project_project_participant_path(@project.organization_id, @project.id), class:"btn btn-primary" %>
-    <%= link_to "Delete People", project_project_participants_delete_path(@project.organization_id, @project.id), class:"btn btn-primary" %>
+    <%= link_to "Delete People", delete_people_path, class:"btn btn-primary" %>
     <%= link_to "Add Tasks", "#", class:"btn btn-primary" %>
   </p>
 
@@ -38,16 +38,10 @@
 
     <div>
 
-      <% @project.users.each do |projectuser| %>
-        <div>
-          <%= projectuser.email %>
-        </div>
-        <div class="smallLink">
-          <%= link_to "Delete", project_project_participant_path(@project.organization_id,@project.id,@project.user_id),
-                method: :delete,
-                data: { confirm: "Are you sure?" } %>
-        </div>
-      <% end %>
+
+        <%#= render 'deleteform' %>
+        <%= render 'projectuserform' %>
+  
     </div>
   </div>
 
@@ -55,3 +49,5 @@
     <div class="containerTitle">Tasks</div>
   </div>
 </div>
+
+<%#= undefined method `each' for #<Project id: 7, title: "basecamp", body: "hello", organization_id: 1, created_at: "2023-01-08 10:25:55.700834000 +0000", updated_at: "2023-01-08 10:25:55.700834000 +0000", user_id: 5, start_date: nil, end_date: nil, complete: false> %>

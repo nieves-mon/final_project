@@ -35,7 +35,8 @@ class ProjectParticipantsController < ApplicationController
       end
     end
   
-    def delete
+    def delete_people
+      @userdelete = User.joins(:projects).all
     end
 
     def destroy

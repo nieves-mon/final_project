@@ -1,0 +1,12 @@
+<% @project.users.each do |projectuser| %>
+        <div>
+          <%= projectuser.email %>
+          <%= projectuser.organization_id %>
+          <%= projectuser.id %>
+        </div>
+        <div class="smallLink">
+          <%#= link_to "Delete", project_project_participant_path(projectuser.organization_id, projectuser.project_id, projectuser.id),
+                method: :delete,
+                data: { confirm: "Are you sure?" } %>
+        </div>
+<% end %>
