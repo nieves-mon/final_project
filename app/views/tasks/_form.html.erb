@@ -1,13 +1,11 @@
 <%= form_with model: @task, url: url do |f| %>
-
     <div class="form-outline mb-4">
         <%= f.label :title, class: "form-label" %>
         <%= f.text_field :title, id:"form2Example2", class:"form-control" %>
 
         <% task.errors.full_messages_for(:title).each do |message| %>
-            <div class="error-msg" style="color:red;"><%= message %></div>
+            <div class="error-msg"><%= message %></div>
         <% end %>
-
     </div>
 
     <div class="form-outline mb-4">
@@ -15,7 +13,7 @@
         <%= f.text_area :notes, :rows => 6, id:"form2Example2", class:"form-control" %>
 
         <% task.errors.full_messages_for(:notes).each do |message| %>
-            <div class="error-msg" style="color:red;"><%= message %></div>
+            <div class="error-msg"><%= message %></div>
         <% end %>
 
     </div>
@@ -25,18 +23,16 @@
         <%= f.date_field :duedate, id:"form2Example2", class:"form-control" %>
 
         <% task.errors.full_messages_for(:duedate).each do |message| %>
-            <div class="error-msg" style="color:red;"><%= message %></div>
+            <div class="error-msg"><%= message %></div>
         <% end %>
     </div>
 
-    <div class="form-outline input-group mb-4">
-        <div class="input-group-text">
-            <%= f.label :user_id, "Assign to:", class: "form-label my-0" %>
-        </div>
+    <div class="form-outline mb-4">
+        <%= f.label :user_id, "Assign to:", class: "form-label" %>
         <%= f.select :user_id,  @project.users.reduce({}) { |hash, user| hash[user.email] = user.id; hash; }, {prompt: "--Select One--"} , class: 'form-select' %>
 
         <% task.errors.full_messages_for(:user_id).each do |message| %>
-            <div class="error-msg" style="color:red;"><%= message %></div>
+            <div class="error-msg"><%= message %></div>
         <% end %>
     </div>
 
@@ -47,7 +43,7 @@
         <%= f.label :completed, "Completed?", class: "form-control" %>
 
         <% task.errors.full_messages_for(:completed).each do |message| %>
-            <div class="error-msg" style="color:red;"><%= message %></div>
+            <div class="error-msg"><%= message %></div>
         <% end %>
     </div>
 
