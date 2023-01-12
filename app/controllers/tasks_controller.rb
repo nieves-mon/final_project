@@ -23,7 +23,6 @@ class TasksController < ApplicationController
     end
 
     def update
-        byebug
         if @task.update(task_params)
             redirect_to project_task_path(@project.organization, @project, @task), notice: "Task was successfully edited"
         else
