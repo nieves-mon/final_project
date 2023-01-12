@@ -1,5 +1,5 @@
 <p>
-  <h1><strong>Delete Member</strong></h1>
+  <h1><strong>Delete Participant</strong></h1>
 </p>
 
 <%= form_with(scope: @user, url: meeting_participants_delete_path(@meeting.organization_id,@meeting.id), method: 'destroy') do |f| %>
