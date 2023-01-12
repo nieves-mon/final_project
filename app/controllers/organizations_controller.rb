@@ -24,7 +24,7 @@ class OrganizationsController < ApplicationController
             if user_in_db.present?
                 redirect_to users_path, alert: "email #{email} already in use"
             elsif user_in_db.nil?
-                User.invite!({ email: email, organization: current_organization, employee: true }, current_user) #devise_invitable
+                User.invite!({ email: email, organization: current_organization }, current_user) #devise_invitable
                 redirect_to users_path, notice: "#{email} was invited to join the organization #{current_organization.name}"
             end
         else
