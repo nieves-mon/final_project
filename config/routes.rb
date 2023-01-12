@@ -18,15 +18,19 @@ Rails.application.routes.draw do
 
   scope "organizations/:organization_id" do
     resources :meetings do
-      get "/new_user" => "meetings#new_user", as: :new_user
-      post "/new_user" => "meetings#create_user"
+      resources :participants, except: [ :edit, :update, :show, :destroy ]
+      get "participants/delete" => "participants#delete", as: :delete
+      post "participants/delete" => "participants#destroy"
     end
     resources :projects do
         resources :tasks, except: [ :index ]
         resources :project_participants
-        get "project_participants/delete" => "project_participants#delete", as: :delete
-        post "project_participants/delete" => "participants#destroy"
+
+        #get "project_participants/delete" => "project_participants#delete", as: :delete
+        #post "project_participants/delete" => "participants#destroy"
     end
   end
 
+  get "delete_people", to: "project_participants#delete_people"
+  delete "delete_people", to: "project_participants#delete_people"
 end

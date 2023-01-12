@@ -35,9 +35,6 @@ class ProjectParticipantsController < ApplicationController
       end
     end
 
-    def delete
-    end
-
     def destroy
       @project_participant = @project.users.find(params[:id])
       @project_participant.tasks.each { |task| task.unassign }

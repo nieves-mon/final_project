@@ -1,22 +1,21 @@
 <p>
-  <h1><strong><%= @organization.name %> Meetings</strong></h1>
+  <h1><strong><%= current_tenant.name %> Meetings</strong></h1>
   <%= link_to "Schedule New Meeting", new_meeting_path, class:"btn btn-primary" %>
 </p>
 
 <table class="table table-striped table-bordered table-hover">
-  <thead>
-    <tr>
-        <th>Title</th>
-        <th>Scheduled Date</th>
-        <th>Action</th>   
-    </tr>
-  </thead>
+<%= render "meeting_header" %>
   <tbody>
   <% @meetings.each do |meeting| %>
     <tr>
         <td><%= link_to meeting.title, meeting_path(meeting.organization_id,meeting.id) %></td>
         <td><%= meeting.scheduled_date%></td>
-        <td><%= link_to "Add Member", meeting_new_user_path(meeting.organization_id,meeting.id) %></td>
+        <td>
+          <% if current_user.manager? %>
+            <%= link_to 'Edit', edit_meeting_path(meeting.organization_id,meeting.id) %> |
+            <%= link_to 'Delete', meeting_path(meeting.organization_id,meeting.id), method: :delete, data: { confirm: "Are you sure?" }, class: "task-subtitle"%>
+          <% end %>
+        </td>
     </tr>
   <% end %>
   </tbody>
