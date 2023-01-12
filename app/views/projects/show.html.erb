@@ -6,7 +6,7 @@
 
   <p>
     <%= link_to "Add People", new_project_project_participant_path(@project.organization_id, @project.id), class:"btn btn-primary" %>
-    <%= link_to "Delete People", project_project_participants_delete_path(@project.organization_id, @project.id), class:"btn btn-primary" %>
+    <%= link_to "Delete People", project_project_participant_delete_path(@project.organization_id, @project.id, @project.user_id), class:"btn btn-primary" %>
     <%= link_to "Add Tasks", new_project_task_path(@project.organization_id, @project.id), class:"btn btn-primary" %>
   </p>
 
@@ -17,6 +17,9 @@
       Complete:
       <%= @project.complete %>
     </div>
+
+    <%= render 'completeform' %>
+
 
     <div>
       Start Date:
@@ -35,9 +38,7 @@
       Project Manager
       <%= project_lead(@project.user_id) %>
     </div>
-
     <div>
-
       <% @project.users.each do |projectuser| %>
         <div>
           <%= projectuser.email %>
