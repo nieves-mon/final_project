@@ -20,9 +20,6 @@ RSpec.describe User, type: :model do
             expect(build(:user, password: nil)).not_to be_valid
         end
 
-        # No User role
-        # User does not belong to any organization
-
     end
     
 end

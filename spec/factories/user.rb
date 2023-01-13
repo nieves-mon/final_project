@@ -11,14 +11,14 @@ FactoryBot.define do
         after(:build) do |user|
             user.class.skip_callback(:create)
         end
-    end
-  
-    trait :skip_validations do
-       to_create { |instance| instance.save(validate: false) }
-    end
-  
-    trait :admin do
-        roles { {"admin": true } }
+
+        trait :skip_validations do
+            to_create { |instance| instance.save(validate: false) }
+        end
+       
+        trait :admin do
+             roles { {"admin": true } }
+        end
     end
   
   end

@@ -37,4 +37,3 @@ Rails.application.routes.draw do
 
   #get "delete_people", to: "project_participants#delete_people"
   #delete "delete_people", to: "project_participants#delete_people"
-end

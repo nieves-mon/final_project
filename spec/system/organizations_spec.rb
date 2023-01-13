@@ -50,9 +50,10 @@ RSpec.describe "Organizations", type: :system do
         #     admin_login(admin_account)
         #     visit edit_user_path(admin_account)
         #     fill_in 'user[email]', with: admin_account
-        #     page.check('Admin')
+        #     check 'Admin'
+        #     uncheck 'Manager'
         #     click_on 'Update User'
-        #     expect(page).to have_content('user was successfully updated.')
+        #     expect(page).to have_content(admin_account)
         # end
 
         it 'lets you remove members in the organization' do
