@@ -1,17 +1,32 @@
-<p>
-  <h1><strong><%= current_tenant.name %> Meetings</strong></h1>
-  <%= link_to "Schedule New Meeting", new_meeting_path, class:"btn btn-primary" %>
-</p>
+<%= render "sidebar" %>
 
-<table class="table table-striped table-bordered table-hover">
-<%= render "meeting_header" %>
-  <tbody>
-  <% @meetings.each do |meeting| %>
-    <tr>
-        <td><%= link_to meeting.title, meeting_path(meeting.organization_id,meeting.id) %></td>
-        <td><%= meeting.scheduled_date%></td>
-        <td><%= meeting.users.count %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+<div class="mainContainer">
+  <p>
+    <h1><strong><%= current_tenant.name %> Meetings</strong></h1>
+  </p>
+
+  <div class="mainSubContainer">
+    <% @meetings.each do |meeting| %>
+      <div class="projectContainer">
+        <%= link_to meeting.title, meeting_path(meeting.organization_id,meeting.id) %>
+        <%= meeting.scheduled_date%>
+        <%= meeting.users.count %>
+
+        <div class="smallLinkContainer">
+          <div class="smallLink">
+            <%= link_to "Edit", edit_meeting_path(meeting.organization_id,meeting.id) %>
+          </div>
+          <div class="smallLink">
+            <%= link_to "Delete", meeting_path(meeting.organization_id,meeting.id),
+                method: :delete,
+                data: { confirm: "Are you sure?" } %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="projectContainer">
+      <%= link_to "+", new_meeting_path %>
+    </div>
+  </div>
+</div>

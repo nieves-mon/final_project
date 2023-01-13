@@ -1,3 +1,22 @@
-Dashboard
-<br>
-<%= current_tenant.name %>
+<h1><strong>Dashboard</strong></h1>
+<div class="infoContainer">
+
+        <h1><strong>Projects</strong></h1>
+        <% @projects.each do |project| %>
+            <%= project.title %>
+        <% end %>
+</div>
+<div class="infoContainer">
+
+        <h1><strong>Meetings</strong></h1>
+        <% @meetings.each do |meeting| %>
+            <%= meeting.title %>
+        <% end %>
+</div>
+<div class="infoContainer">
+
+        <h1><strong>Tasks</strong></h1>
+        <% @tasks.each do |task| %>
+            <%= task.title %>
+        <% end %>
+</div>
