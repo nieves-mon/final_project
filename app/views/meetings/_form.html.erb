@@ -4,7 +4,7 @@
     <%= f.label "Discussion Topic", class: "form-label" %>
     <%= f.text_field :title, id:"form2Example2", class:"form-control" %>
 
-    <% @meeting.errors.full_messages_for(:email).each do |message| %>
+    <% @meeting.errors.full_messages_for(:title).each do |message| %>
       <div class="error-msg" style="color:red;"><%= message %></div>
     <% end %>
 
@@ -14,7 +14,7 @@
     <%= f.label "Notes", class: "form-label" %>
     <%= f.text_area :body, :rows => 6, id:"form2Example2", class:"form-control" %>
 
-    <% @meeting.errors.full_messages_for(:password).each do |message| %>
+    <% @meeting.errors.full_messages_for(:body).each do |message| %>
       <div class="error-msg" style="color:red;"><%= message %></div>
     <% end %>
 

@@ -15,6 +15,9 @@ RSpec.describe Meeting, type: :model do
         it "is not valid if meeting is greater than 20 characters" do
             expect(build(:meeting, title: 'abcdefghijklmnopqrstuvwxz')).not_to be_valid
         end
+        it "is not valid if meeting is greater than 20 characters" do
+            expect(build(:meeting, scheduled_date: '')).not_to be_valid
+        end
     end
 
     context "when params are incomplete" do
@@ -23,6 +26,9 @@ RSpec.describe Meeting, type: :model do
         end
         it "is not valid without a scheduled date" do
             expect(build(:meeting, scheduled_date: nil)).not_to be_valid
+        end
+        it "is not valid if it does not belong to an organization" do
+            expect(build(:meeting, organization_id: nil)).not_to be_valid
         end
     end
     
