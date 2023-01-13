@@ -4,5 +4,6 @@ class HomeController < ApplicationController
   include RequireOrganization
   
   def dashboard
+    @organization = current_user.organization
   end
 end

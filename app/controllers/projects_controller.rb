@@ -10,6 +10,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
+    byebug
     @organization = current_user.organization
     @project = @organization.projects.build(project_params)
     @project.user_id = current_user.id
