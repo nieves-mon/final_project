@@ -12,7 +12,9 @@ class ParticipantsController < ApplicationController
     @user_in_org = @organization.users.find_by(email: params[:user][:email])
     @user_in_meeting = @meeting.users.find_by(email: params[:user][:email])
 
-    if @user_in_meeting.nil? && @user_in_org.present?
+    if @user_in_org.meeting_manager?
+      redirect_to meetings_path, notice: "User is a meeting manager of another meeting. Hence, cannot be added as a participant to this meeting."
+    elsif @user_in_meeting.nil? && @user_in_org.present?
       @participant = @meeting.users << @user_in_org
       redirect_to meetings_path, notice: "User successfully added as participant"
     elsif @user_in_meeting.nil? && @user_in_org.nil?
@@ -48,7 +50,7 @@ private
   end
 
   def require_manager
-    if current_user.manager? && @meeting.users.include?(current_user)
+    if current_user.meeting_manager? && @meeting.users.include?(current_user)
         # allow to proceed
     else
         redirect_to meetings_path, alert: "You are not authorized to perform this action."

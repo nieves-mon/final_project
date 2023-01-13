@@ -27,7 +27,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new(meeting_params)
 
     if @meeting.save
-      current_user.update!(manager: true) #anyone who creates a meeting will become its manager
+      current_user.update!(meeting_manager: true) if !current_user.meeting_manager? #anyone who creates a meeting will become its manager
       @meeting.save_zoom_meeting
       @meeting.users << current_user
       redirect_to meetings_path, notice: "Meeting was successfully set."
@@ -40,7 +40,7 @@ class MeetingsController < ApplicationController
   end
 
   def update
-    if @meeting.update(meeting_params)
+    if @meeting.update!(meeting_params)
       @meeting.update_zoom_meeting
       redirect_to meetings_path, notice: "Meeting was successfully updated."
     else
@@ -51,7 +51,7 @@ class MeetingsController < ApplicationController
   def destroy
     @meeting.delete_zoom_meeting
     @meeting.destroy
-    current_user.update!(manager: false)
+    current_user.update!(meeting_manager: false) if current_user.meetings.count == 0
     redirect_to meetings_path, notice: "Meeting was successfully deleted."
   end
 
@@ -69,7 +69,7 @@ private
   end
 
   def require_manager
-    if current_user.manager? && @meeting.users.include?(current_user)
+    if current_user.meeting_manager? && @meeting.users.include?(current_user)
         # allow to proceed
     else
         redirect_to meetings_path, alert: "You are not authorized to perform this action."

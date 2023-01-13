@@ -4,8 +4,7 @@ class Meeting < ApplicationRecord
   has_many :user_meetings, dependent: :destroy
   has_many :users, through: :user_meetings
   
-  validates :title, presence: true, uniqueness: true
-  validates :title, length: { in: 2..20 }
+  validates :title, presence: true, uniqueness: true, length: { minimum: 2, maximum: 20}
   validates :scheduled_date, presence: true
 
   def create_zoom_meeting(topic, agenda, start_time)

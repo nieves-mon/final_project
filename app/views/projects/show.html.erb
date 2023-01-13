@@ -16,8 +16,10 @@
       Complete:
       <%= @project.complete %>
     </div>
-
-    <%= render 'completeform' %>
+    
+    <% if current_user.project_manager? %>
+      <%= render 'completeform' %>
+    <% end %>
 
 
     <div>
@@ -36,13 +38,10 @@
 <div class="infoContainer">
     <div class="containerTitle">Project Participants</div>
     <div>
-      Project Manager
-      <%= project_lead(@project.user_id) %>
-    </div>
-    <div>
       <% @project.users.each do |projectuser| %>
         <div>
           <%= projectuser.email %>
+          <span class="badge bg-info"><%= projectuser.active_roles.join(", ") %></span>
         </div>
         <div class="smallLink">
           <%= link_to "Delete", project_project_participant_path(@project.organization_id, @project.id, projectuser.id),
