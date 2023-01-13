@@ -9,7 +9,7 @@ RSpec.describe "Projects", type: :system do
         login_as(admin_account, scope: :user)
     end
 
-    context "admin account" do
+    context "project manager account" do
         organization = FactoryBot.create(:organization)
         admin_account = FactoryBot.create(:user, :project_manager, organization: organization)
         unsaved_project = FactoryBot.build(:project, organization: organization)
