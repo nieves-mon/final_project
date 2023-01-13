@@ -16,6 +16,7 @@ class ProjectsController < ApplicationController
     if @project.save
       redirect_to projects_path, notice: "Project was successfully created."
     else
+      render :new
     end
   end
 

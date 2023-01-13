@@ -31,6 +31,8 @@ class MeetingsController < ApplicationController
       @meeting.save_zoom_meeting
       @meeting.users << current_user
       redirect_to meetings_path, notice: "Meeting was successfully set."
+    else
+      render :new
     end
   end
 
@@ -51,12 +53,6 @@ class MeetingsController < ApplicationController
     @meeting.destroy
     current_user.update!(manager: false)
     redirect_to meetings_path, notice: "Meeting was successfully deleted."
-  end
-
-  def new_user
-    @organization = current_user.organization
-    @meeting = @organization.meetings.find(params[:meeting_id])
-    @set_user_meeting = @meeting.user_meetings.build(meeting_id:params[:meeting_id])
   end
 
 private
