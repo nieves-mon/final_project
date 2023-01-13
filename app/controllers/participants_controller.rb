@@ -48,7 +48,7 @@ private
   end
 
   def require_manager
-    if current_user.manager? && @meeting.users.include?(current_user)
+    if current_user.meeting_manager? && @meeting.users.include?(current_user)
         # allow to proceed
     else
         redirect_to meetings_path, alert: "You are not authorized to perform this action."
