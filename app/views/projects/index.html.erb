@@ -16,6 +16,7 @@
             </div>
             <div class="smallLink">
               <%= link_to "Delete", project_path(project.organization_id,project.id),
+                  title: "Delete #{project.title}",
                   method: :delete,
                   data: { confirm: "Are you sure?" } %>
               </div>

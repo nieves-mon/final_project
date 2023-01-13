@@ -9,14 +9,9 @@ RSpec.describe "Projects", type: :system do
         login_as(admin_account, scope: :user)
     end
 
-    def user_login(user)
-        login_as(user, scope: :user)
-    end
-
     context "admin account" do
         organization = FactoryBot.create(:organization)
         admin_account = FactoryBot.create(:user, :project_manager, organization: organization)
-        user = FactoryBot.create(:user, organization: organization)
         unsaved_project = FactoryBot.build(:project, organization: organization)
         saved_project = FactoryBot.create(:project, organization: organization)
         project_participant = FactoryBot.create(:project_participant, user: admin_account, project: saved_project)
@@ -53,15 +48,15 @@ RSpec.describe "Projects", type: :system do
             expect(page).to have_content('Project was successfully updated.')
         end
 
-        # it 'lets you delete project details' do
-        #     expect(admin_account.roles).to include("project_manager"=>true)
-        #     admin_login(admin_account)
-        #     visit project_path(saved_project.organization_id, saved_project.id)
-        #     expect(page).to have_content(saved_project.title)
-        #     click_on 'Delete'
-        #     expect { click_on 'OK' }.to change(Project, :count).by(1)
-        # end
+        it 'lets you delete project details' do
+            expect(admin_account.roles).to include("project_manager"=>true)
+            admin_login(admin_account)
 
+            visit projects_path(organization)
+            expect(page).to have_content(saved_project.title)
+
+            expect { click_on "Delete #{saved_project.title}" }.to change(Project, :count).by(-1)
+        end
     end
 
 end
