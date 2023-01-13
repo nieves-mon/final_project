@@ -11,15 +11,15 @@
         <%= link_to project.title, project_path(project.organization_id,project.id) %>
 
         <div class="smallLinkContainer">
-          <div class="smallLink">
-            <%= link_to "Edit", edit_project_path(project.organization_id,project.id) %>
-          </div>
-          <div class="smallLink">
-            <%= link_to "Delete", project_path(project.organization_id,project.id),
-                method: :delete,
-                data: { confirm: "Are you sure?" } %>
+            <div class="smallLink">
+              <%= link_to "Edit", edit_project_path(project.organization_id,project.id) %>
             </div>
-          </div>
+            <div class="smallLink">
+              <%= link_to "Delete", project_path(project.organization_id,project.id),
+                  method: :delete,
+                  data: { confirm: "Are you sure?" } %>
+              </div>
+            </div>
         </div>
     <% end %>
 
