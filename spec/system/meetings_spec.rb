@@ -16,7 +16,7 @@ RSpec.describe "Meetings", type: :system do
     context "admin account" do
         organization = FactoryBot.create(:organization)
         admin_account = FactoryBot.create(:user, :admin, organization: organization)
-        user_manager = FactoryBot.create(:user, :manager, organization: organization)
+        user_manager = FactoryBot.create(:user, :meeting_manager, organization: organization)
         meeting = FactoryBot.create(:meeting, organization: organization)
         admin_meeting = FactoryBot.create(:user_meeting, user: admin_account, meeting: meeting)
         manager_meeting = FactoryBot.create(:user_meeting, user: user_manager, meeting: meeting)
