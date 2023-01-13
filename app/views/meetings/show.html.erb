@@ -8,6 +8,8 @@
     <h1><strong><%= @meeting.title %></strong></h1>
     <p>
         <% if current_user.manager? %>
+            <%= link_to 'Edit Details', edit_meeting_path(@meeting.organization_id,@meeting.id) %> |
+            <%= link_to 'Delete Meeting', meeting_path(@meeting.organization_id,@meeting.id), method: :delete, data: { confirm: "Are you sure?" }, class: "task-subtitle"%> |
             <%= link_to "Add Participant", new_meeting_participant_path(@meeting.organization_id,@meeting.id) %> | 
             <%= link_to "Delete Participant", meeting_participants_delete_path(@meeting.organization_id,@meeting.id) %>
         <% end %>
