@@ -17,13 +17,13 @@ RSpec.describe "User_meetings", type: :system do
         organization = FactoryBot.create(:organization)
         admin_account = FactoryBot.create(:user, :admin, organization: organization)
         employee_account = FactoryBot.create(:user, :employee, organization: organization)
-        user_manager = FactoryBot.create(:user, :manager, organization: organization)
+        user_manager = FactoryBot.create(:user, :meeting_manager, organization: organization)
         meeting = FactoryBot.create(:meeting, organization: organization)
         admin_meeting = FactoryBot.create(:user_meeting, user: admin_account, meeting: meeting)
         manager_meeting = FactoryBot.create(:user_meeting, user: user_manager, meeting: meeting)
 
         it 'lets you add a meeting participant' do
-            expect(user_manager.roles).to include("manager"=>true)
+            expect(user_manager.roles).to include("meeting_manager"=>true)
             user_login(user_manager)
             visit new_meeting_participant_path(manager_meeting,meeting)
             expect(page).to have_content('Add Participant')
@@ -33,7 +33,7 @@ RSpec.describe "User_meetings", type: :system do
         end
 
         it 'lets you remove participant' do
-            expect(user_manager.roles).to include("manager"=>true)
+            expect(user_manager.roles).to include("meeting_manager"=>true)
             user_login(user_manager)
             visit meeting_delete_path(manager_meeting,meeting)
             expect(page).to have_content('Delete Participant')

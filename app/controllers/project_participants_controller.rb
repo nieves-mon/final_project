@@ -43,7 +43,7 @@ class ProjectParticipantsController < ApplicationController
       @project_participant.tasks.each { |task| task.unassign }
       @project.users.delete(@project_participant)
 
-      redirect_to project_path(@project.organization, @project)
+      redirect_to project_path(@project.organization, @project), notice: "Project participant was successfully removed."
     end
 
 

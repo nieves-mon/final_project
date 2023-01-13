@@ -44,6 +44,7 @@
         </div>
         <div class="smallLink">
           <%= link_to "Delete", project_project_participant_path(@project.organization_id, @project.id, projectuser.id),
+                title: "Delete #{projectuser.email}",
                 method: :delete,
                 data: { confirm: "Are you sure?" } %>
         </div>
