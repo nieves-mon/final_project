@@ -28,7 +28,7 @@ FactoryBot.define do
         end
 
         trait :project_manager do
-            roles { {"meeting_manager": true } }
+            roles { {"project_manager": true } }
         end
     end
 
