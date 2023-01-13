@@ -1,46 +1,43 @@
+<div class="infoContainer">
+    <h1><strong><%= @meeting.title %></strong></h1>
+    <p>
+        <% if current_user.meeting_manager? %>
+            <%= link_to 'Edit Details', edit_meeting_path(@meeting.organization_id,@meeting.id) %> |
+            <%= link_to 'Delete Meeting', meeting_path(@meeting.organization_id,@meeting.id), method: :delete, data: { confirm: "Are you sure?" }, class: "task-subtitle"%> |
+            <%= link_to "Add Participant", new_meeting_participant_path(@meeting.organization_id,@meeting.id) %> |
+            <%= link_to "Delete Participant", meeting_participants_delete_path(@meeting.organization_id,@meeting.id) %>
+        <% end %>
+    </p>
 
-    <p id="notice"><%= notice %></p>
+    <table class="table">
+        <tr>
+            <td><b>Title: </b></td>
+            <td><%= @meeting.title %></td>
+        </tr>
 
-    <div class="infoContainer">
-        <h1><strong><%= @meeting.title %></strong></h1>
-        <p>
-            <% if current_user.meeting_manager? %>
-                <%= link_to 'Edit Details', edit_meeting_path(@meeting.organization_id,@meeting.id) %> |
-                <%= link_to 'Delete Meeting', meeting_path(@meeting.organization_id,@meeting.id), method: :delete, data: { confirm: "Are you sure?" }, class: "task-subtitle"%> |
-                <%= link_to "Add Participant", new_meeting_participant_path(@meeting.organization_id,@meeting.id) %> |
-                <%= link_to "Delete Participant", meeting_participants_delete_path(@meeting.organization_id,@meeting.id) %>
-            <% end %>
-        </p>
+        <tr>
+            <td><b>Additional Notes: </b></td>
+            <td><%= @meeting.body %></td>
+        </tr>
 
-        <table class="table">
-            <tr>
-                <td><b>Title: </b></td>
-                <td><%= @meeting.title %></td>
-            </tr>
+        <tr>
+            <td><b>Scheduled Date:</b></td>
+            <td><%= @meeting.scheduled_date %></td>
+        </tr>
 
-            <tr>
-                <td><b>Additional Notes: </b></td>
-                <td><%= @meeting.body %></td>
-            </tr>
+        <tr>
+            <th scope="row">Zoom Link:</th>
+            <td><%= link_to @meeting.zoom_link, @meeting.zoom_link %></td>
+        </tr>
 
-            <tr>
-                <td><b>Scheduled Date:</b></td>
-                <td><%= @meeting.scheduled_date %></td>
-            </tr>
+        <tr>
+            <td><b>Participants:</b></td>
+            <td>
+                <% @participants.each do |participant| %>
+                <%= participant.email %><span class="badge bg-info"><%= participant.active_roles.join(", ") %></span><br/>
+                <% end %>
+            </td>
+        </tr>
 
-            <tr>
-                <th scope="row">Zoom Link:</th>
-                <td><%= link_to @meeting.zoom_link, @meeting.zoom_link %></td>
-            </tr>
-
-            <tr>
-                <td><b>Participants:</b></td>
-                <td>
-                    <% @participants.each do |participant| %>
-                    <%= participant.email %><span class="badge bg-info"><%= participant.active_roles.join(", ") %></span><br/>
-                    <% end %>
-                </td>
-            </tr>
-
-        </table>
-    </div>
+    </table>
+</div>
