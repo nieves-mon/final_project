@@ -6,7 +6,7 @@ FactoryBot.define do
         confirmation_sent_at { Date.today }
         confirmed_at { Date.today }
         invitation_accepted_at { Date.today }
-        roles { {"employee": true } }
+        roles { {"manager": true } }
   
         after(:build) do |user|
             user.class.skip_callback(:create)
@@ -17,7 +17,15 @@ FactoryBot.define do
         end
        
         trait :admin do
-             roles { {"admin": true } }
+            roles { {"admin": true } }
+        end
+
+        trait :employee do
+            roles { {"employee": true } }
+        end
+
+        trait :manager do
+            roles { {"manager": true } }
         end
     end
   

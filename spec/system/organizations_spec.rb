@@ -12,7 +12,7 @@ RSpec.describe "Organizations", type: :system do
     context "admin account" do
         organization = FactoryBot.create(:organization)
         admin_account = FactoryBot.create(:user, :admin, organization: organization)
-        user = FactoryBot.create(:user, organization: organization)
+        user = FactoryBot.create(:user, :employee, organization: organization)
 
         it 'lets you show organization details' do
             expect(admin_account.roles).to include("admin"=>true)

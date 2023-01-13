@@ -19,6 +19,9 @@ RSpec.describe User, type: :model do
         it "is not valid without a password" do
             expect(build(:user, password: nil)).not_to be_valid
         end
+        it "is not valid if it does not belong to an organization" do
+            expect(build(:user, organization_id: nil)).not_to be_valid
+        end
 
     end
     
