@@ -1,19 +1,23 @@
 class ProjectsController < ApplicationController
+  include SetOrganization
+  include RequireOrganization #if no organization is set, access will not be allowed to whole UsersController
+
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
+
   def index
-    @organization = current_user.organization
-    @projects = @organization.projects
+    @projects = current_user.projects
   end
 
   def new
-    @organization = current_user.organization
-    @project = @organization.projects.build
+    @project = Project.new
   end
 
   def create
-    @organization = current_user.organization
-    @project = @organization.projects.build(project_params)
-    @project.user_id = current_user.id
+    @project = Project.new(project_params)
+    
     if @project.save
+      current_user.update!(manager: true) #anyone who creates a project will become its manager
+      @project.users << current_user
       redirect_to projects_path, notice: "Project was successfully created."
     else
       render :new
@@ -21,8 +25,6 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @organization = current_user.organization
-    @project = @organization.projects.find(params[:id])
     @overdue_tasks = @project.tasks.overdue
     @today_tasks = @project.tasks.today
     @future_tasks = @project.tasks.future
@@ -30,13 +32,9 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @organization = current_user.organization
-    @project = @organization.projects.find(params[:id])
   end
 
   def update
-    @organization = current_user.organization
-    @project = @organization.projects.find(params[:id])
     if @project.update(project_params)
       redirect_to projects_path, notice: "Project was successfully updated."
     else
@@ -45,10 +43,15 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @organization = current_user.organization
-    @project = @organization.projects.find(params[:id])
     @project.destroy
+    current_user.update!(manager: false)
     redirect_to projects_path, notice: "Project was successfully deleted."
+  end
+
+  private
+
+  def set_project
+    @project = Project.find(params[:id])
   end
 
   def project_params

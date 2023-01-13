@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_11_123530) do
+ActiveRecord::Schema.define(version: 2023_01_13_071144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2023_01_11_123530) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "project_participants", id: false, force: :cascade do |t|
+  create_table "project_participants", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "project_id"
     t.index ["project_id"], name: "index_project_participants_on_project_id"
@@ -74,12 +74,10 @@ ActiveRecord::Schema.define(version: 2023_01_11_123530) do
     t.bigint "organization_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
     t.date "start_date"
     t.date "end_date"
     t.boolean "complete", default: false
     t.index ["organization_id"], name: "index_projects_on_organization_id"
-    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -117,7 +115,6 @@ ActiveRecord::Schema.define(version: 2023_01_11_123530) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "tenant_id"
     t.string "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -127,6 +124,7 @@ ActiveRecord::Schema.define(version: 2023_01_11_123530) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.bigint "organization_id"
+    t.bigint "tenant_id"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -147,7 +145,6 @@ ActiveRecord::Schema.define(version: 2023_01_11_123530) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "meetings", "organizations"
   add_foreign_key "projects", "organizations"
-  add_foreign_key "projects", "users"
   add_foreign_key "tasks", "projects"
   add_foreign_key "user_meetings", "meetings"
   add_foreign_key "users", "organizations"

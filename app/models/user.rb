@@ -9,9 +9,9 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :organization
 
   has_many :user_meetings, dependent: :destroy
-  has_many :meetings, through: :user_meetings, dependent: :destroy
+  has_many :meetings, through: :user_meetings
 
-  has_many :project_participants
+  has_many :project_participants, dependent: :destroy
   has_many :projects, through: :project_participants
   has_many :tasks
   
