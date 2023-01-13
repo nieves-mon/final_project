@@ -6,7 +6,6 @@ FactoryBot.define do
         confirmation_sent_at { Date.today }
         confirmed_at { Date.today }
         invitation_accepted_at { Date.today }
-        roles { {"manager": true } }
   
         after(:build) do |user|
             user.class.skip_callback(:create)
