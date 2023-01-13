@@ -5,6 +5,12 @@
     <h1><strong><%= current_tenant.name %> Projects</strong></h1>
   </p>
 
+  <%= link_to new_project_path, title: "Create New Project" do %>
+    <div class="projectContainer d-flex align-items-center justify-content-center">
+      +
+    </div>
+  <% end %>
+
   <div class="mainSubContainer">
     <% @projects.each do |project| %>
       <div class="projectContainer">
@@ -23,9 +29,5 @@
             </div>
         </div>
     <% end %>
-
-    <div class="projectContainer">
-      <%= link_to "+", new_project_path %>
-    </div>
   </div>
 </div>
