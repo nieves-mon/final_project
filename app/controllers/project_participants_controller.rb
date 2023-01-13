@@ -12,7 +12,9 @@ class ProjectParticipantsController < ApplicationController
       @user_in_org = @organization.users.find_by(email: params[:user][:email])
       @user_in_project = @project.users.find_by(email: params[:user][:email])
 
-      if @user_in_project.nil? && @user_in_org.present?
+      if @user_in_org.project_manager?
+        redirect_to projects_path, notice: "User is a project manager of another project. Hence, cannot be added as a participant to this project."
+      elsif @user_in_project.nil? && @user_in_org.present?
         @project_participant = @project.users << @user_in_org
         redirect_to projects_path, notice: "User successfully added as participant"
       elsif @user_in_project.nil? && @user_in_org.nil?
