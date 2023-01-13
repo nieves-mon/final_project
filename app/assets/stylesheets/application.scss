@@ -10,8 +10,6 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
  */
 @import "bootstrap/scss/bootstrap";
 @import "**/*";
@@ -88,11 +86,11 @@
     margin-top: 5%;
     -webkit-box-shadow: 0 0 5px rgba(70, 180, 240, 0.2),
         2px 3px 4px rgba(77, 147, 228, 0.65),
-        inset 2px 3px 4px rgba(31,31,31,.6),
+        inset 2px 3px 4px rgba(31, 31, 31, .6),
         inset 0 0 5px rgba(31, 75, 209, 0.25);
     -moz-box-shadow: 0 0 5px rgba(93, 164, 227, 0.2),
         2px 3px 4px rgba(68, 93, 205, 0.65),
-        inset 2px 3px 4px rgba(31,31,31,.6),
+        inset 2px 3px 4px rgba(31, 31, 31, .6),
         inset 0 0 5px rgba(30, 24, 187, 0.25);
     box-shadow: 0 0 5px rgba(119, 156, 223, 0.2),
         2px 3px 4px rgba(19, 75, 154, 0.65),
