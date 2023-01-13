@@ -1,8 +1,9 @@
 class ProjectParticipantsController < ApplicationController
 
-  before_action :set_organization, only: [:new, :create, :delete, :destroy]
-  before_action :set_project, only: [:new, :create, :delete, :destroy]
-  before_action :set_user, only: [:new, :delete]
+  before_action :set_organization, only: [:new, :create, :destroy]
+  before_action :set_project, only: [:new, :create, :destroy]
+  before_action :set_user, only: [:new]
+  before_action :require_manager, only: [:new, :create, :destroy]
 
     def new
     end
@@ -56,6 +57,14 @@ class ProjectParticipantsController < ApplicationController
 
     def set_user
       @user = @project.users.build(email: params[:email])
+    end
+
+    def require_manager
+      if current_user.project_manager? && @project.users.include?(current_user)
+          # allow to proceed
+      else
+          redirect_to projects_path, alert: "You are not authorized to perform this action."
+      end
     end
 
   end

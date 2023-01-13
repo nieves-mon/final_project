@@ -3,6 +3,8 @@ class ProjectsController < ApplicationController
   include RequireOrganization #if no organization is set, access will not be allowed to whole UsersController
 
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :require_manager, only: [:edit, :update, :destroy]
+  before_action :require_member, only: [:show]
 
   def index
     @projects = current_user.projects
@@ -16,7 +18,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     
     if @project.save
-      current_user.update!(manager: true) #anyone who creates a project will become its manager
+      current_user.update!(project_manager: true) if !current_user.project_manager? #anyone who creates a project will become its manager
       @project.users << current_user
       redirect_to projects_path, notice: "Project was successfully created."
     else
@@ -44,7 +46,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project.destroy
-    current_user.update!(manager: false)
+    current_user.update!(project_manager: false) if current_user.projects.count == 0
     redirect_to projects_path, notice: "Project was successfully deleted."
   end
 
@@ -56,6 +58,22 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:title, :body, :start_date, :end_date, :complete, user_ids: [])
+  end
+
+  def require_manager
+    if current_user.project_manager? && @project.users.include?(current_user)
+        # allow to proceed
+    else
+        redirect_to projects_path, alert: "You are not authorized to perform this action."
+    end
+  end
+
+  def require_member
+    if @project.users.include?(current_user)
+        #allow to proceed
+    else
+        redirect_to projects_path, alert: "You are not authorized to perform this action."
+    end
   end
 
 end
