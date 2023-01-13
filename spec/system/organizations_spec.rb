@@ -45,16 +45,15 @@ RSpec.describe "Organizations", type: :system do
             expect(page).to have_content(organization.users.count)
         end
 
-        # it 'lets you edit member details' do
-        #     expect(admin_account.admin).to eq(true)
-        #     admin_login(admin_account)
-        #     visit edit_user_path(admin_account)
-        #     fill_in 'user[email]', with: admin_account
-        #     check 'Admin'
-        #     uncheck 'Manager'
-        #     click_on 'Update User'
-        #     expect(page).to have_content(admin_account)
-        # end
+        it 'lets you edit member details' do
+            expect(admin_account.admin).to eq(true)
+            admin_login(admin_account)
+            visit edit_user_path(admin_account)
+            check 'Admin'
+            uncheck 'Meeting manager'
+            click_on 'Update User'
+            expect(page).to have_content("user was successfully updated.")
+        end
 
         it 'lets you remove members in the organization' do
             expect(admin_account.roles).to include("admin"=>true)
