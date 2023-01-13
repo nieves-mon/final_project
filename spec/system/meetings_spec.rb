@@ -17,15 +17,13 @@ RSpec.describe "Meetings", type: :system do
         organization = FactoryBot.create(:organization)
         admin_account = FactoryBot.create(:user, :admin, organization: organization)
         user_manager = FactoryBot.create(:user, :meeting_manager, organization: organization)
-        # meeting = FactoryBot.create(:meeting, organization: organization)
-        # admin_meeting = FactoryBot.create(:user_meeting, user: admin_account, meeting: meeting)
-        # manager_meeting = FactoryBot.create(:user_meeting, user: user_manager, meeting: meeting)
         unsaved_meeting = FactoryBot.build(:meeting, organization: organization)
         saved_meeting = FactoryBot.create(:meeting, organization: organization)
+        other_meeting = FactoryBot.create(:meeting, organization: organization)
         user_meeting = FactoryBot.create(:user_meeting, user: user_manager, meeting: saved_meeting)
+        user_meeting = FactoryBot.create(:user_meeting, user: user_manager, meeting: other_meeting)
 
         it 'lets you create a meeting' do
-            # meeting.save_zoom_meeting
             expect(admin_account.roles).to include("admin"=>true)
             admin_login(admin_account)
 
@@ -66,15 +64,13 @@ RSpec.describe "Meetings", type: :system do
         end
 
         it 'lets you delete meeting details' do
-            saved_meeting.save_zoom_meeting
+            other_meeting.save_zoom_meeting
             expect(user_manager.roles).to include("meeting_manager"=>true)
             user_login(user_manager)
 
-            visit meeting_path(saved_meeting.organization , saved_meeting)
+            visit meeting_path(other_meeting.organization , other_meeting)
 
-            expect(page).to have_content(saved_meeting.title)
-            p saved_meeting
-            # saved_meeting.delete_zoom_meeting
+            expect(page).to have_content(other_meeting.title)
             click_on 'Delete Meeting'
 
             expect(page).to have_content('Meeting was successfully deleted.')
