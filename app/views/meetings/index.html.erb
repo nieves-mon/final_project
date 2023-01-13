@@ -9,7 +9,6 @@
     <% @meetings.each do |meeting| %>
       <div class="projectContainer">
         <%= link_to meeting.title, meeting_path(meeting.organization_id,meeting.id) %>
-        <%= meeting.scheduled_date%>
         <%= meeting.users.count %>
 
         <div class="smallLinkContainer">
