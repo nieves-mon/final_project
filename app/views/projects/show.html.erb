@@ -6,10 +6,6 @@
 
   <p>
     <%= link_to "Add People", new_project_project_participant_path(@project.organization_id, @project.id), class:"btn btn-primary" %>
-<<<<<<< HEAD
-    <%# <%= link_to "Delete People", project_project_participant_delete_path(@project.organization_id, @project.id), class:"btn btn-primary" %>
-=======
->>>>>>> 6d9f985d9727aff8873a3d094b025ad867d25e38
     <%= link_to "Add Tasks", new_project_task_path(@project.organization_id, @project.id), class:"btn btn-primary" %>
   </p>
 
@@ -20,7 +16,7 @@
       Complete:
       <%= @project.complete %>
     </div>
-    
+
     <% if current_user.project_manager? %>
       <%= render 'completeform' %>
     <% end %>
@@ -40,19 +36,10 @@
     </div>
   </div>
 
-<<<<<<< HEAD
-  <div class="infoContainer">
-    <div class="containerTitle">Project Participants</div>
-    <div>
-      Project Manager
-      <%= project_lead(@project.user_id) %>
-    </div>
-=======
 </div>
 
 <div class="infoContainer">
     <div class="containerTitle">Project Participants</div>
->>>>>>> 6d9f985d9727aff8873a3d094b025ad867d25e38
     <div>
       <% @project.users.each do |projectuser| %>
         <div>
