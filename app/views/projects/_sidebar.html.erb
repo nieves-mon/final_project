@@ -3,19 +3,19 @@
             <div class="sideLinks">
                 <div class="textCount">Total Projects</div>
                 <div class="count">
-                <%= Project.count %>
+                <%= current_user.projects.count %>
                 </div>
             </div>
             <div class="sideLinks">
                 <div class="textCount">Complete</div>
                 <div class="count">
-                <%= Project.where("complete = 'true'").size %>
+                <%= current_user.projects.where("complete = 'true'").size %>
                 </div>
             </div>
             <div class="sideLinks">
                 <div class="textCount">In-progress</div>
                 <div class="count">
-                <%= Project.where("complete = 'false'").size %>
+                <%= current_user.projects.where("complete = 'false'").size %>
                 </div>
             </div>
         <% end %>

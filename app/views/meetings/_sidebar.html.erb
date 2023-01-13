@@ -3,7 +3,7 @@
             <div class="sideLinks">
                 <div class="textCount">Total Meetings</div>
                 <div class="count">
-                <%= Meeting.count %>
+                <%= current_user.meetings.count %>
                 </div>
             </div>
         <% end %>
