@@ -18,11 +18,5 @@
                 <%= Project.where("complete = 'false'").size %>
                 </div>
             </div>
-            <div class="sideLinks">
-                <div class="textCount">Out of schedule</div>
-                <div class="count">
-                <%= Project.count %>
-                </div>
-            </div>
         <% end %>
 </div>

@@ -1,0 +1,10 @@
+<div class="sideBar">
+        <% if user_signed_in? %>
+            <div class="sideLinks">
+                <div class="textCount">Total Meetings</div>
+                <div class="count">
+                <%= Meeting.count %>
+                </div>
+            </div>
+        <% end %>
+</div>
