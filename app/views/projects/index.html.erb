@@ -5,12 +5,21 @@
     <h1><strong><%= current_tenant.name %> Projects</strong></h1>
   </p>
 
+  <%= link_to new_project_path, title: "Create New Project" do %>
+    <div class="projectContainer d-flex align-items-center justify-content-center">
+      +
+    </div>
+  <% end %>
+
   <div class="mainSubContainer">
     <% @projects.each do |project| %>
-      <div class="projectContainer">
-        <%= link_to project.title, project_path(project.organization_id,project.id) %>
+      <div class="projectContainer d-flex flex-column justify-content-between">
+        <div class="projectDetails d-flex flex-column">
+          <%= link_to project.title, project_path(project.organization_id,project.id), class: "fw-bold" %>
+          <p class="mt-2 fst-italic text-muted"><%= project.tasks.count %> Pending Task<% if project.tasks.count != 1 %>s<% end %></p>
+        </div>
 
-        <div class="smallLinkContainer">
+        <div class="smallLinkContainer text-center">
             <div class="smallLink">
               <%= link_to "Edit", edit_project_path(project.organization_id,project.id) %>
             </div>
@@ -23,9 +32,5 @@
             </div>
         </div>
     <% end %>
-
-    <div class="projectContainer">
-      <%= link_to "+", new_project_path %>
-    </div>
   </div>
 </div>

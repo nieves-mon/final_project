@@ -3,22 +3,30 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 .projectContainer {
-    height: 200px;
-    width: 200px;
-    margin: 20px;
-    font-size: 30px;
-    text-align: center;
-    background:#e6e9fa;
+    height: 13rem;
+    width: 16rem;
+    margin: 1rem;
+    font-size: 1.8rem;
+    background: #e6e9fa;
     display: block;
-    padding: 1em;
+    padding: 0.8em;
     -moz-box-shadow: 5px 5px 7px rgba(33, 33, 33, 1);
     -webkit-box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
     box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
     border-radius: 20px;
     float: left;
+
+    a {
+        text-decoration: none;
+    }
+
+    a:first-child {
+        line-height: 2rem;
+    }
 }
 
-.projectContainer:hover, .projectContainer:focus {
+.projectContainer:hover,
+.projectContainer:focus {
     box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
     -moz-box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
     -webkit-box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
@@ -27,10 +35,15 @@
     -o-transform: scale(1.25);
     position: relative;
     z-index: 5;
+    cursor: pointer;
+
+    .smallLink {
+        display: inline-block;
+    }
 }
 
 .projectContainer .smallLinkContainer {
-    position: absolute;
-    bottom: 7px;
-    left: 7px;
+    // position: absolute;
+    // bottom: 7px;
+    // left: 7px;
 }

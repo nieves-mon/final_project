@@ -19,6 +19,7 @@
     text-align: center;
     text-decoration: none;
     bottom: 5px;
+    display: none;
 }
 
 .mainContainer {
@@ -78,24 +79,30 @@
 
 .formContainer {
     width: 40%;
-    background-color: #fee8e2;
-    color: #FB8D72;
+    background-color: #FB8D72;
+    color: #ffffff;
     margin: auto;
-    padding: 30px;
+    padding: 2rem;
     border-radius: 30px;
     margin-top: 5%;
-    -webkit-box-shadow: 0 0 5px rgba(70, 180, 240, 0.2),
-        2px 3px 4px rgba(77, 147, 228, 0.65),
-        inset 2px 3px 4px rgba(31, 31, 31, .6),
-        inset 0 0 5px rgba(31, 75, 209, 0.25);
-    -moz-box-shadow: 0 0 5px rgba(93, 164, 227, 0.2),
-        2px 3px 4px rgba(68, 93, 205, 0.65),
-        inset 2px 3px 4px rgba(31, 31, 31, .6),
-        inset 0 0 5px rgba(30, 24, 187, 0.25);
-    box-shadow: 0 0 5px rgba(119, 156, 223, 0.2),
-        2px 3px 4px rgba(19, 75, 154, 0.65),
-        inset 2px 3px 4px rgba(54, 49, 193, 0.6),
-        inset 0 0 5px rgba(30, 14, 175, 0.25);
+
+    // -webkit-box-shadow: 0 0 5px rgba(70, 180, 240, 0.2),
+    //     2px 3px 4px rgba(77, 147, 228, 0.65),
+    //     inset 2px 3px 4px rgba(31, 31, 31, .6),
+    //     inset 0 0 5px rgba(31, 75, 209, 0.25);
+    // -moz-box-shadow: 0 0 5px rgba(93, 164, 227, 0.2),
+    //     2px 3px 4px rgba(68, 93, 205, 0.65),
+    //     inset 2px 3px 4px rgba(31, 31, 31, .6),
+    //     inset 0 0 5px rgba(30, 24, 187, 0.25);
+    // box-shadow: 0 0 5px rgba(119, 156, 223, 0.2),
+    //     2px 3px 4px rgba(19, 75, 154, 0.65),
+    //     inset 2px 3px 4px rgba(54, 49, 193, 0.6),
+    //     inset 0 0 5px rgba(30, 14, 175, 0.25);
+    input,
+    .form-check {
+        accent-color: rgba(30, 14, 175, 0.25);
+    }
+
     overflow: hidden;
 }
 
@@ -120,4 +127,30 @@
 
 .thinner {
     width: 30%;
+}
+
+.form-actions>.btn {
+    border: none;
+    background: rgba(30, 14, 175, 0.4);
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.form-actions>.btn:active {
+    background: rgba(30, 14, 175, 0.35);
+}
+
+.devise-links>a {
+    color: rgba(30, 14, 175, 0.4);
+    text-decoration: none;
+    font-weight: 600;
+    width: fit-content;
+}
+
+.devise-links>a:hover {
+    color: #ffffff;
+}
+
+.hint {
+    color: rgba(30, 14, 175, 0.4) !important;
 }

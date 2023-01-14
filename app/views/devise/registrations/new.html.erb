@@ -1,37 +1,39 @@
 <div class="formContainer">
-<h2>Sign up</h2>
+  <h2 class="fw-bold">Sign up</h2>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.simple_fields_for :organization, Organization.new do |o| %>
-      <%= o.input :name,
-                  label: "Organization Name",
-                  error: "Organization name can't be blank",
+    <div class="form-inputs d-grid gap-2 my-2 fw-bolder">
+      <%= f.simple_fields_for :organization, Organization.new do |o| %>
+        <%= o.input :name,
+                    label: "Organization Name",
+                    error: "Organization name can't be blank",
+                    required: true,
+                    autofocus: true,
+                    input_html: { autocomplete: "organization-name" }%>
+        <%= o.input :logo,
+                    input_html: {  class:"form-control", type:"file", id:"formFile"} %>
+      <% end %>
+      <br>
+      <%= f.input :email,
                   required: true,
                   autofocus: true,
-                  input_html: { autocomplete: "organization-name" }%>
-      <%= o.input :logo %>
-    <% end %>
-    <br>
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" }%>
-    <%= f.input :password,
-                required: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: true,
-                input_html: { autocomplete: "new-password" } %>
-  </div>
+                  input_html: { autocomplete: "email" }%>
+      <%= f.input :password,
+                  required: true,
+                  hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                  input_html: { autocomplete: "new-password" },
+                  hint_html: { class: "fst-italic fw-semibold hint" } %>
+      <%= f.input :password_confirmation,
+                  required: true,
+                  input_html: { autocomplete: "new-password" } %>
+    </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
-  </div>
-<% end %>
+    <div class="form-actions d-flex justify-content-center">
+      <%= f.button :submit, "Sign up", class: "fw-semibold" %>
+    </div>
+  <% end %>
 
-<%= render "devise/shared/links" %>
+  <%= render "devise/shared/links" %>
 </div>
