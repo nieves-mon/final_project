@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   before_action :require_admin, only: [:show, :edit, :update, :destroy, :resend_invitation]
 
   def index
-    @users = User.all
+    @users = User.all.order(:id)
   end
 
   def show

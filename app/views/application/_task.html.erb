@@ -1,20 +1,24 @@
-<table class="table mb-0">
-    <% tasks.each do |task| %>
-        <tr>
-            <td>
-                <%= form_with model: task, url: project_task_path(@project.organization, @project, task)  do |f| %>
-                    <%= f.check_box :completed, onclick: "this.parentElement.submit();" %>
-                <% end %>
-            </td>
-            <th scope="row"><%= link_to task.title, project_task_path(@project.organization, @project, task) %></th>
-            <td><%= task.duedate.strftime("%a, %b %d") %></td>
-            <td>
-                <% if task.user.nil? %>
-                    Not assigned yet
-                <% else %>
-                    <%= task.user.email %>
-                <% end %>
-            </td>
-        </tr>
-    <% end %>
-</table>
+<% if tasks.count == 0 %>
+    <p class="text-muted text-center fst-italic">No <%= label %> Tasks</p>
+<% else %>
+    <table class="table mb-0">
+        <% tasks.each do |task| %>
+            <tr>
+                <td>
+                    <%= form_with model: task, url: project_task_path(@project.organization, @project, task)  do |f| %>
+                        <%= f.check_box :completed, onclick: "this.parentElement.submit();" %>
+                    <% end %>
+                </td>
+                <th scope="row"><%= link_to task.title, project_task_path(@project.organization, @project, task) %></th>
+                <td><%= task.duedate.strftime("%a, %b %d") %></td>
+                <td>
+                    <% if task.user.nil? %>
+                        Not assigned yet
+                    <% else %>
+                        <%= task.user.email %>
+                    <% end %>
+                </td>
+            </tr>
+        <% end %>
+    </table>
+<% end %>
