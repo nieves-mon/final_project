@@ -141,7 +141,7 @@
 }
 
 .devise-links>a {
-    color: rgba(30, 14, 175, 0.4);
+    color: #ffffffda;
     text-decoration: none;
     font-weight: 600;
     width: fit-content;
@@ -149,6 +149,7 @@
 
 .devise-links>a:hover {
     color: #ffffff;
+    text-decoration: underline;
 }
 
 .hint {
