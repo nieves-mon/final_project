@@ -13,11 +13,13 @@
 
   <div class="mainSubContainer">
     <% @meetings.each do |meeting| %>
-      <div class="projectContainer">
-        <%= link_to meeting.title, meeting_path(meeting.organization_id,meeting.id) %>
-        <%= meeting.users.count %>
+      <div class="projectContainer d-flex flex-column justify-content-between">
+        <div class="projectDetails d-flex flex-column">
+          <%= link_to meeting.title, meeting_path(meeting.organization_id,meeting.id), class: "fw-bold" %>
+          <p class="mt-2 fst-italic text-muted"><%= meeting.users.count %> Participant<% if meeting.users.count != 1 %>s<% end %></p>
+        </div>
 
-        <div class="smallLinkContainer">
+        <div class="smallLinkContainer text-center">
           <div class="smallLink">
             <%= link_to "Edit", edit_meeting_path(meeting.organization_id,meeting.id) %>
           </div>
