@@ -43,11 +43,11 @@
 
   <div class="form-outline input-group mb-3">
       <div class="input-group-text">
-          <%= f.check_box :completed, id:"form2Example2", class: "form-check-input mt-0"%>
+          <%= f.check_box :complete, id:"form2Example2", class: "form-check-input mt-0"%>
       </div>
-      <%= f.label :completed, "Completed?", class: "form-control" %>
+      <%= f.label :complete, "Completed?", class: "form-control" %>
 
-      <% @project.errors.full_messages_for(:completed).each do |message| %>
+      <% @project.errors.full_messages_for(:complete).each do |message| %>
           <div class="error-msg"><%= message %></div>
       <% end %>
   </div>

@@ -3,9 +3,15 @@ class Meeting < ApplicationRecord
   acts_as_tenant(:organization)
   has_many :user_meetings, dependent: :destroy
   has_many :users, through: :user_meetings
-  
+
   validates :title, presence: true, uniqueness: true, length: { minimum: 2, maximum: 20}
   validates :scheduled_date, presence: true
+
+  def save_zoom_meeting
+    return if zoom_link.present?
+    _zoom_link, _zoom_id = create_zoom_meeting(self.title, self.body, self.scheduled_date)
+    update(zoom_link: _zoom_link, zoom_id: _zoom_id)
+  end
 
   def create_zoom_meeting(topic, agenda, start_time)
     response = zoom_client.meeting_create(topic: topic, agenda: agenda,
@@ -13,12 +19,6 @@ class Meeting < ApplicationRecord
                                           settings: {join_before_host: true},
                                           start_time: start_time.strftime('%Y-%m-%dT%H:%M:%S'))
     [response['join_url'], response['id']]
-  end
-
-  def save_zoom_meeting
-    return if zoom_link.present?
-    _zoom_link, _zoom_id = create_zoom_meeting(self.title, self.body, self.scheduled_date)
-    update(zoom_link: _zoom_link, zoom_id: _zoom_id)
   end
 
   def update_zoom_meeting
