@@ -36,13 +36,13 @@
   </table>
 </div>
 
-<div class="infoContainer mt-4">
-  <% if current_user.admin? %>
-    <h1><strong>Invite Members</strong></h1>
-    <hr/>
-    <%= form_tag invite_a_member_of_organizations_path, method: :get, class: "input-group" do %>
-      <%= email_field_tag 'email', '', class: "form-control" %>
-      <%= submit_tag "Send Invite", class: "btn bg-info btn-outline-info text-light" %>
-    <% end %>
-  <% end %>
-</div>
+<% if current_user.admin? %>
+  <div class="infoContainer mt-4">
+      <h1><strong>Invite Members</strong></h1>
+      <hr/>
+      <%= form_tag invite_a_member_of_organizations_path, method: :get, class: "input-group" do %>
+        <%= email_field_tag 'email', '', class: "form-control" %>
+        <%= submit_tag "Send Invite", class: "btn bg-info btn-outline-info text-light" %>
+      <% end %>
+  </div>
+<% end %>
