@@ -80,10 +80,20 @@
     }
 }
 
+.form-control::file-selector-button {
+    background-color: $light-base-color;
+    color: white;
+}
+
+.form-control:hover:not(:disabled):not([readonly])::file-selector-button {
+    background-color: white;
+    color: $base-color;
+}
+
 .error {
     font-style: italic;
     font-size: 1rem;
-    color: #FFD65B;
+    color: $yellow;
     text-align: center;
 }
 
@@ -100,6 +110,11 @@
 .was-validated .form-check-input:valid~.form-check-label,
 .form-check-input.is-valid~.form-check-label {
     color: white;
+}
+
+.hint,
+.invalid-feedback {
+    color: $yellow !important;
 }
 
 @media screen and (max-width: 940px) {
@@ -237,8 +252,4 @@
 
 .thinner {
     width: 30%;
-}
-
-.hint {
-    color: rgba(30, 14, 175, 0.4) !important;
 }
