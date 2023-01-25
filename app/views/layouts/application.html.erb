@@ -22,9 +22,10 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
+    <%# <%= render 'layouts/header' %>
 
-    <div class="container my-4">
+
+    <% if user_signed_in? %>
       <% flash.each do |key, value| %>
         <% alert_class = case key
                         when "notice" then "success"
@@ -32,14 +33,16 @@
                         else key
                         end %>
         <% if value.present? %>
-          <%= content_tag :div, class: "alert alert-#{alert_class} alert-dismissible fade show", role: "alert" do %>
-            <%= value %>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          <% end %>
+          <div class="container my-4">
+            <%= content_tag :div, class: "alert alert-#{alert_class} alert-dismissible fade show", role: "alert" do %>
+              <%= value %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <% end %>
+          </div>
         <% end %>
       <% end %>
+    <% end %>
 
-      <%= yield %>
-    </div>
+    <%= yield %>
   </body>
 </html>
