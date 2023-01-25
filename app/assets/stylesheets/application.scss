@@ -14,6 +14,120 @@
 @import "bootstrap/scss/bootstrap";
 @import "**/*";
 
+.home-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.sign-form-container {
+    background-color: $base-color;
+    color: white;
+    width: 40%;
+    height: 100%;
+}
+
+.form-group {
+
+    input,
+    input:active,
+    input:focus {
+        color: $base-color;
+        outline: none;
+    }
+}
+
+.home-img-container {
+    width: 60%;
+    height: auto;
+}
+
+.home-img {
+    max-width: 50em;
+    margin: auto;
+}
+
+.form-actions {
+    .btn {
+        border: none;
+        background: $light-base-color;
+        color: white;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .btn:hover,
+    .btn:active {
+        background: white;
+        color: $base-color;
+    }
+}
+
+.devise-links {
+    a {
+        color: #ffffffda;
+        text-decoration: none;
+        font-weight: 600;
+        width: fit-content;
+    }
+
+    a:hover {
+        color: #ffffff;
+        text-decoration: underline;
+    }
+}
+
+.error {
+    font-style: italic;
+    font-size: 1rem;
+    color: #FFD65B;
+    text-align: center;
+}
+
+.was-validated .form-check-input:valid:checked,
+.form-check-input.is-valid:checked {
+    background-color: $light-base-color;
+}
+
+.was-validated .form-check-input:valid,
+.form-check-input.is-valid {
+    border-color: $light-base-color;
+}
+
+.was-validated .form-check-input:valid~.form-check-label,
+.form-check-input.is-valid~.form-check-label {
+    color: white;
+}
+
+@media screen and (max-width: 940px) {
+    .sign-form-container {
+        width: 50%;
+    }
+
+    .home-img-container {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 625px) {
+    .sign-form-container {
+        width: 100%;
+
+        .devise-links {
+            a {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .home-img-container {
+        display: none;
+    }
+}
+
 .smallLink {
     font-size: 12px;
     text-align: center;
@@ -73,13 +187,9 @@
     margin-bottom: 20px;
 }
 
-#navbarBackground {
-    background-color: #FB8D72 !important;
-}
-
 .formContainer {
     width: 40%;
-    background-color: #FB8D72;
+    background-color: $purple;
     color: #ffffff;
     margin: auto;
     padding: 2rem;
@@ -127,29 +237,6 @@
 
 .thinner {
     width: 30%;
-}
-
-.form-actions>.btn {
-    border: none;
-    background: rgba(30, 14, 175, 0.4);
-    padding-left: 2rem;
-    padding-right: 2rem;
-}
-
-.form-actions>.btn:active {
-    background: rgba(30, 14, 175, 0.35);
-}
-
-.devise-links>a {
-    color: #ffffffda;
-    text-decoration: none;
-    font-weight: 600;
-    width: fit-content;
-}
-
-.devise-links>a:hover {
-    color: #ffffff;
-    text-decoration: underline;
 }
 
 .hint {
