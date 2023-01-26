@@ -2,8 +2,8 @@ class OrganizationsController < ApplicationController
     before_action :set_organization, only: [:show, :edit, :update, :destroy]
     before_action :set_organization_for_inviting, only: [:invite_a_member_of]
     before_action :require_admin, only: [:invite_a_member_of, :edit, :update, :destroy]
-     before_action :require_member, only: [:show]
-    
+    before_action :require_member, only: [:show]
+
 
     # GET /organizations
     def index
