@@ -13,6 +13,11 @@
  */
 @import "bootstrap/scss/bootstrap";
 @import "**/*";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
 
 .main-container {
     display: flex;
@@ -22,6 +27,7 @@
 }
 
 .content {
+    background: $off-white;
     display: flex;
     flex-direction: column;
     flex: 1 auto;
