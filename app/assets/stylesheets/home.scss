@@ -1,3 +1,133 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+@import "./variables";
+
+.home-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.sign-form-container {
+    background-color: $base-color;
+    color: white;
+    width: 40%;
+    height: 100%;
+}
+
+.form-group {
+
+    input,
+    input:active,
+    input:focus {
+        color: $base-color;
+        outline: none;
+    }
+}
+
+.home-img-container {
+    width: 60%;
+    height: auto;
+}
+
+.home-img {
+    max-width: 50em;
+    margin: auto;
+}
+
+.form-actions {
+    .btn {
+        border: none;
+        background: $light-base-color;
+        color: white;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .btn:hover,
+    .btn:active {
+        background: white;
+        color: $base-color;
+    }
+}
+
+.devise-links {
+    a {
+        color: #ffffffda !important;
+        text-decoration: none;
+        font-weight: 600;
+        width: fit-content;
+    }
+
+    a:hover {
+        color: #ffffff;
+        text-decoration: underline;
+    }
+}
+
+.form-control::file-selector-button {
+    background-color: $light-base-color;
+    color: white;
+}
+
+.form-control:hover:not(:disabled):not([readonly])::file-selector-button {
+    background-color: white;
+    color: $base-color;
+}
+
+.error {
+    font-style: italic;
+    font-size: 1rem;
+    color: $yellow;
+    text-align: center;
+}
+
+.was-validated .form-check-input:valid:checked,
+.form-check-input.is-valid:checked {
+    background-color: $light-base-color;
+}
+
+.was-validated .form-check-input:valid,
+.form-check-input.is-valid {
+    border-color: $light-base-color;
+}
+
+.was-validated .form-check-input:valid~.form-check-label,
+.form-check-input.is-valid~.form-check-label {
+    color: white;
+}
+
+.hint,
+.invalid-feedback {
+    color: $yellow !important;
+}
+
+@media screen and (max-width: 940px) {
+    .sign-form-container {
+        width: 50%;
+    }
+
+    .home-img-container {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .sign-form-container {
+        width: 100%;
+
+        .devise-links {
+            a {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .home-img-container {
+        display: none;
+    }
+}
