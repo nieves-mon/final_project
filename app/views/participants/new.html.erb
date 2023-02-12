@@ -1,22 +1,25 @@
-<div class="formContainer" id="form1">
-  <p>
-    <h1><strong>Add Participant</strong></h1>
-  </p>
+<div class="d-flex flex-wrap m-5 gap-4 justify-content-around align-items-center">
+  <div class="card p-3 border-0">
+    <%= link_to "< Back", meeting_path(@meeting.organization, @meeting), class: "text-decoration-none mb-2" %>
+    <h1 class="fw-bold card-title">Add Participant</h1>
+    <hr>
 
-  <%= form_with(scope: @user, url: meeting_participants_path, method: 'post') do |f| %>
+    <% if meeting_participant_options(@meeting).count == 0 %>
+      <p class="fw-semibold fst-italic my-4 text-muted fs-5">All organization members are already participants of this meeting</p>
+    <% else %>
+      <%= form_with(scope: @user, url: meeting_participants_path, method: 'post') do |f| %>
+        <div class="form-outline mb-4">
+            <%= f.select :email, meeting_participant_options(@meeting), { selected: 0}, class: 'form-select' %>
 
-    <div class="form-outline mb-4">
-      <%= f.label :email, class:"form-label" %>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", id:"form2Example1", class:"form-control" %>
+            <% @user.errors.full_messages_for(:email).each do |message| %>
+                <div class="error-msg"><%= message %></div>
+            <% end %>
+        </div>
 
-      <% @user.errors.full_messages_for(:email).each do |message| %>
-        <div class="error-msg" style="color:red;"><%= message %></div>
+        <div class="d-grid gap-2 col-6 mx-auto">
+          <%= f.submit "Submit", class:"btn btn-primary btn-block mb-4" %>
+        </div>
       <% end %>
-
-    </div>
-
-    <div class="d-grid gap-2 col-6 mx-auto">
-      <%= f.submit "Submit", class:"btn btn-primary btn-block mb-4" %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
