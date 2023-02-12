@@ -14,8 +14,10 @@ class User < ApplicationRecord
   has_many :project_participants, dependent: :destroy
   has_many :projects, through: :project_participants
   has_many :tasks
-  
+
   validates_uniqueness_to_tenant :email
+
+  scope :available_for_meeting, -> (meeting){ where.not(id: meeting.users).order(:email) }
 
   # List of user roles
   ROLES = [:admin, :meeting_manager, :project_manager]
