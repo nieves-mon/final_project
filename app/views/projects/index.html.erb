@@ -1,34 +1,11 @@
-<div class="mainContainer">
-  <p>
-    <h1><strong><%= current_tenant.name %> Projects</strong></h1>
-  </p>
+<div class="card p-3 d-flex flex-row flex-wrap justify-content-between align-items-center gap-4 m-4 border-0">
+  <h1 class="fw-bold"><%= current_tenant.name %> Projects</h1>
 
-  <%= link_to new_project_path, title: "Create New Project" do %>
-    <div class="projectContainer d-flex align-items-center justify-content-center">
-      +
-    </div>
-  <% end %>
+  <%= link_to "Create New Project", new_project_path, class: "btn btn-primary"%>
+</div>
 
-  <div class="mainSubContainer">
-    <% @projects.each do |project| %>
-      <div class="projectContainer d-flex flex-column justify-content-between">
-        <div class="projectDetails d-flex flex-column">
-          <%= link_to project.title, project_path(project.organization_id,project.id), class: "fw-bold" %>
-          <p class="mt-2 fst-italic text-muted"><%= project.tasks.count %> Pending Task<% if project.tasks.count != 1 %>s<% end %></p>
-        </div>
-
-        <div class="smallLinkContainer text-center">
-            <div class="smallLink">
-              <%= link_to "Edit", edit_project_path(project.organization_id,project.id) %>
-            </div>
-            <div class="smallLink">
-              <%= link_to "Delete", project_path(project.organization_id,project.id),
-                  title: "Delete #{project.title}",
-                  method: :delete,
-                  data: { confirm: "Are you sure?" } %>
-              </div>
-            </div>
-        </div>
-    <% end %>
-  </div>
+<div class="d-flex flex-column m-5 mt-0 gap-4 justify-content-around">
+  <%= render "projects", projects: @overdue, label: "Overdue" %>
+  <%= render "projects", projects: @pending, label: "Pending" %>
+  <%= render "projects", projects: @completed, label: "Completed" %>
 </div>
