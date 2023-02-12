@@ -22,7 +22,7 @@ class ProjectsController < ApplicationController
     if @project.save
       current_user.update!(project_manager: true) if !current_user.project_manager? #anyone who creates a project will become its manager
       @project.users << current_user
-      redirect_to projects_path, notice: "Project was successfully created."
+      redirect_to project_path(@project.organization, @project.id), notice: "Project was successfully created."
     else
       render :new
     end
@@ -40,7 +40,7 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      redirect_to projects_path, notice: "Project was successfully updated."
+      redirect_to project_path(@project.organization, @project.id), notice: "Project was successfully updated."
     else
       render :edit
     end
