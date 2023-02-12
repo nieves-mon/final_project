@@ -17,25 +17,14 @@ class ParticipantsController < ApplicationController
     elsif @user_in_meeting.nil? && @user_in_org.present?
       @participant = @meeting.users << @user_in_org
       redirect_to meetings_path, notice: "User successfully added as participant"
-    elsif @user_in_meeting.nil? && @user_in_org.nil?
-      redirect_to :new_meeting_participant, notice: "User not a part of the organization"
-    else
-      redirect_to :new_meeting_participant, notice: "User already a participant in the meeting"
     end
-  end
-
-  def delete
   end
 
   def destroy
-    @participant = @meeting.users.find_by(email: params[:user][:email])
+    @participant = @meeting.users.find_by(id: params[:id])
 
-    if @participant.present?
-      @meeting.users.delete(@participant)
-      redirect_to meetings_path, notice: 'Participant was successfully removed.'
-    else
-      redirect_to :meeting_delete, notice: 'User not a meeting participant'
-    end
+    @meeting.users.delete(@participant)
+    redirect_to @meeting, notice: 'Participant was successfully removed.'
   end
 
 private
