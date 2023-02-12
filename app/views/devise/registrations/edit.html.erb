@@ -1,47 +1,49 @@
-<div class="formContainer">
-  <h2 class="fw-bold">Edit <%= resource_name.to_s.humanize %></h2>
-  <hr/>
+<div class="d-flex flex-wrap m-5 gap-4 justify-content-around align-items-center">
+  <div class="card p-3 border-0">
+    <h2 class="fw-bold">Edit <%= resource_name.to_s.humanize %></h2>
+    <hr/>
 
-  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-    <%= f.error_notification %>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= f.error_notification %>
 
-    <div class="form-inputs d-grid gap-2 my-2 fw-bolder">
-      <%= f.input :email, required: true, autofocus: true %>
+      <div class="form-inputs d-grid gap-2 my-2 fw-bolder">
+        <%= f.input :email, required: true, autofocus: true %>
 
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-      <% end %>
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+        <% end %>
 
-      <%= f.input :password,
-                  hint: "leave it blank if you don't want to change it",
-                  required: false,
-                  input_html: { autocomplete: "new-password" },
-                  hint_html: { class: "fst-italic fw-semibold hint" }  %>
-      <%= f.input :password_confirmation,
-                  required: false,
-                  input_html: { autocomplete: "new-password" } %>
-      <%= f.input :current_password,
-                  hint: "we need your current password to confirm your changes",
-                  required: true,
-                  input_html: { autocomplete: "current-password" },
-                  hint_html: { class: "fst-italic fw-semibold hint" }  %>
+        <%= f.input :password,
+                    hint: "leave it blank if you don't want to change it",
+                    required: false,
+                    input_html: { autocomplete: "new-password" },
+                    hint_html: { class: "form-text fst-italic fw-semibold hint" }  %>
+        <%= f.input :password_confirmation,
+                    required: false,
+                    input_html: { autocomplete: "form-control new-password" } %>
+        <%= f.input :current_password,
+                    hint: "we need your current password to confirm your changes",
+                    required: true,
+                    input_html: { autocomplete: "current-password" },
+                    hint_html: { class: "form-text fst-italic fw-semibold hint" }  %>
+      </div>
+
+      <div class="form-actions d-flex justify-content-center mt-4">
+        <%= f.button :submit, "Update" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="card py-3 px-5 border-0">
+    <h3 class="fw-bold">Cancel my account</h3>
+    <hr/>
+
+    <div class="d-flex flex-column justify-content-center align-items-center gap-3">
+      <span class="fs-5">Unhappy?</span>
+      <%= button_to "Cancel my account", registration_path(resource_name),
+                  data: { confirm: "Are you sure?" },
+                  method: :delete,
+                  class: "btn btn-danger mx-auto" %>
     </div>
-
-    <div class="form-actions d-flex justify-content-center mt-4">
-      <%= f.button :submit, "Update" %>
-    </div>
-  <% end %>
-</div>
-
-<div class="formContainer mt-4">
-  <h3 class="fw-bold">Cancel my account</h3>
-  <hr/>
-
-  <div class="d-flex justify-content-center align-items-center gap-2">
-    <span class="fs-5">Unhappy?</span>
-    <%= button_to "Cancel my account", registration_path(resource_name),
-                data: { confirm: "Are you sure?" },
-                method: :delete,
-                class: "btn btn-danger mx-auto" %>
   </div>
 </div>
