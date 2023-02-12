@@ -7,7 +7,9 @@ class ProjectsController < ApplicationController
   before_action :require_member, only: [:show]
 
   def index
-    @projects = current_user.projects
+    @overdue = current_user.projects.overdue
+    @pending = current_user.projects.pending
+    @completed = current_user.projects.completed
   end
 
   def new
@@ -16,7 +18,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
-    
+
     if @project.save
       current_user.update!(project_manager: true) if !current_user.project_manager? #anyone who creates a project will become its manager
       @project.users << current_user

@@ -1,9 +1,0 @@
-<%= form_with model: @project do |f| %>
-
-  <% User.all.each do |user| %>
-    <%= check_box_tag "project[user_ids][]", user.id, @project.user_ids.include?(user.id), id: dom_id(user), class: "form-check-input" %>
-    <%= label_tag dom_id(user), user.email, class: "form-check-label" %><br>
-  <% end %>
-
-  <%= button_to 'Delete' %>
-<% end %>
