@@ -15,7 +15,7 @@ class MeetingsController < ApplicationController
   end
 
   def show
-    @participants = @meeting.users
+    @participants = @meeting.users.order(:email)
   end
 
   def new
