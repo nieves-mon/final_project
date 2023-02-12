@@ -1,6 +1,6 @@
 <div class="d-flex m-5 gap-4 justify-content-around">
     <div class="card p-3 border-0 w-100">
-        <h1><strong><%= @meeting.title %></strong></h1>
+        <h1 class="fw-bold"><%= @meeting.title %></h1>
         <div class="card-body px-0">
             <% if current_user.meeting_manager? %>
                 <%= link_to 'Edit Details', edit_meeting_path(@meeting.organization_id,@meeting.id), class: "btn btn-primary" %>
