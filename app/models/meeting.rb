@@ -7,6 +7,10 @@ class Meeting < ApplicationRecord
   validates :title, presence: true, uniqueness: true, length: { minimum: 2, maximum: 20}
   validates :scheduled_date, presence: true
 
+  scope :today, -> { where("scheduled_date = ?", Date.current).order(:scheduled_date) }
+  scope :future, -> { where("scheduled_date > ?", Date.current).order(:scheduled_date) }
+  scope :past, -> { where("scheduled_date < ?", Date.current).order(:scheduled_date) }
+
   def save_zoom_meeting
     return if zoom_link.present?
     _zoom_link, _zoom_id = create_zoom_meeting(self.title, self.body, self.scheduled_date)

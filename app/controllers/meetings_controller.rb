@@ -9,10 +9,9 @@ class MeetingsController < ApplicationController
 
   def index
     @meetings = current_user.meetings
-    @datetoday = Date.current
-    @overdue = current_user.meetings.where('scheduled_date < ?', @datetoday)
-    @today = current_user.meetings.where('scheduled_date = ?', @datetoday)
-    @soon = current_user.meetings.where('scheduled_date > ?', @datetoday)
+    @past = current_user.meetings.past
+    @today = current_user.meetings.today
+    @future = current_user.meetings.future
   end
 
   def show
