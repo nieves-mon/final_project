@@ -1,43 +1,56 @@
-<div class="infoContainer">
-    <h1><strong><%= @meeting.title %></strong></h1>
-    <p>
-        <% if current_user.meeting_manager? %>
-            <%= link_to 'Edit Details', edit_meeting_path(@meeting.organization_id,@meeting.id) %> |
-            <%= link_to 'Delete Meeting', meeting_path(@meeting.organization_id,@meeting.id), method: :delete, data: { confirm: "Are you sure?" }, class: "task-subtitle"%> |
-            <%= link_to "Add Participant", new_meeting_participant_path(@meeting.organization_id,@meeting.id) %> |
-            <%= link_to "Delete Participant", meeting_participants_delete_path(@meeting.organization_id,@meeting.id) %>
-        <% end %>
-    </p>
+<div class="d-flex m-5 gap-4 justify-content-around">
+    <div class="card p-3 border-0 w-100">
+        <h1><strong><%= @meeting.title %></strong></h1>
+        <div class="card-body px-0">
+            <% if current_user.meeting_manager? %>
+                <%= link_to 'Edit Details', edit_meeting_path(@meeting.organization_id,@meeting.id), class: "btn btn-primary" %>
+                <%= link_to 'Delete Meeting', meeting_path(@meeting.organization_id,@meeting.id),
+                        method: :delete,
+                        data: { confirm: "Are you sure?" },
+                        class: "btn btn-danger" %>
+            <% end %>
+        </div>
 
-    <table class="table">
-        <tr>
-            <td><b>Title: </b></td>
-            <td><%= @meeting.title %></td>
-        </tr>
+        <table class="table">
+            <tr>
+                <th scope="row">Additional Notes:</th>
+                <td><%= @meeting.body %></td>
+            </tr>
 
-        <tr>
-            <td><b>Additional Notes: </b></td>
-            <td><%= @meeting.body %></td>
-        </tr>
+            <tr>
+                <th scope="row">Scheduled Date:</th>
+                <td><%= @meeting.scheduled_date.strftime("%^a %b %d, %Y") %></td>
+            </tr>
 
-        <tr>
-            <td><b>Scheduled Date:</b></td>
-            <td><%= @meeting.scheduled_date %></td>
-        </tr>
+            <tr>
+                <th scope="row">Zoom Link:</th>
+                <td><%= link_to @meeting.zoom_link, @meeting.zoom_link, target: "_blank" %></td>
+            </tr>
+        </table>
 
-        <tr>
-            <th scope="row">Zoom Link:</th>
-            <td><%= link_to @meeting.zoom_link, @meeting.zoom_link %></td>
-        </tr>
+        <div class="card-body d-flex flex-row gap-4 align-items-center px-0">
+            <h2 class="fw-semibold m-0">Participants</h2>
 
-        <tr>
-            <td><b>Participants:</b></td>
-            <td>
-                <% @participants.each do |participant| %>
-                <%= participant.email %><span class="badge bg-info"><%= participant.active_roles.join(", ") %></span><br/>
-                <% end %>
-            </td>
-        </tr>
+            <% if current_user.meeting_manager? %>
+                <%= link_to "Add Participant", new_meeting_participant_path(@meeting.organization, @meeting), class: "btn btn-primary" %>
+            <% end %>
+        </div>
 
-    </table>
+        <table class="table overflow-y-auto">
+            <% @participants.each do |participant| %>
+                <tr class="d-flex flex-row w-100">
+                    <td class="flex-grow-1"><%= participant.email %> <span class="badge bg-info"><%= participant.active_roles.join(", ") %></td>
+
+                    <% if current_user.meeting_manager? && current_user != participant %>
+                        <td class="flex-shrink-1"><%= link_to "Remove Participant",
+                                                        meeting_participant_path(@meeting.organization, @meeting, participant),
+                                                        method: :delete,
+                                                        data: { confirm: "Are you sure you want to remove #{participant.email} from this meeting?" },
+                                                        class: "btn btn-sm btn-danger" %>
+                        </td>
+                    <% end %>
+                </tr>
+            <% end %>
+        </table>
+    </div>
 </div>
