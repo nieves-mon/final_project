@@ -34,8 +34,8 @@
                             else key
                             end %>
             <% if value.present? %>
-              <div class="container my-4">
-                <%= content_tag :div, class: "alert alert-#{alert_class} alert-dismissible fade show", role: "alert" do %>
+              <div class="container">
+                <%= content_tag :div, class: "alert alert-#{alert_class} alert-dismissible fade show mt-4", role: "alert" do %>
                   <%= value %>
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 <% end %>
