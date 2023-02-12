@@ -1,6 +1,31 @@
-<h1>Project Participants</h1>
-        
+<div class="d-flex flex-column m-5 gap-4 justify-content-around align-items-center">
+  <div class="card p-3 border-0 w-100">
+    <%= link_to "< Back", project_path(@organization, @project), class: "text-decoration-none" %>
 
-<% @project.users.each do |projectuser| %>
-  <%= projectuser.email %>
-<% end %>
+    <div class="card-body px-0">
+      <h1 class="fw-bold">Project Participants in <%= @project.title %></h1>
+
+      <% if current_user.project_manager? %>
+          <%= link_to "Add Participant", new_project_project_participant_path(@organization, @project), class: "btn btn-primary" %>
+      <% end %>
+    </div>
+
+    <table class="table table-hover">
+      <tbody>
+        <% @participants.each do |participant| %>
+          <tr class="d-flex">
+            <td class="flex-grow-1"><%= participant.email %> <span class="badge bg-info"><%= participant.active_roles.join(", ") %></span></td>
+            <% if current_user != participant && (current_user.admin? || current_user.project_manager) %>
+              <td class="flex-shrink-1">
+                <%= link_to "Remove Participant", project_project_participant_path(@organization, @project, participant),
+                    method: :delete,
+                    data: { confirm: "Are you sure you want to remove #{participant.email} from this project?" },
+                    class: "btn btn-sm btn-danger" %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,5 +1,25 @@
-<div class="formContainer" id="form1">
-    <h1 class="fw-bold">New Project Participant</h1>
-    <hr/>
-    <%= render 'project_participants/form' %>
+<div class="d-flex flex-wrap m-5 gap-4 justify-content-around align-items-center">
+  <div class="card p-3 border-0">
+    <%= link_to "< Back", project_path(@project.organization, @project), class: "text-decoration-none mb-2" %>
+    <h1 class="fw-bold card-title">Add Participant</h1>
+    <hr>
+
+    <% if project_participant_options(@project).count == 0 %>
+      <p class="fw-semibold fst-italic my-4 text-muted fs-5">All organization members are already participants of this project</p>
+    <% else %>
+      <%= form_with(scope: @user, url: project_project_participants_path, method: 'post') do |f| %>
+        <div class="form-outline mb-4">
+            <%= f.select :email, project_participant_options(@project), { selected: 0}, class: 'form-select' %>
+
+            <% @user.errors.full_messages_for(:email).each do |message| %>
+                <div class="error-msg"><%= message %></div>
+            <% end %>
+        </div>
+
+        <div class="d-grid gap-2 col-6 mx-auto">
+          <%= f.submit "Submit", class:"btn btn-primary btn-block mb-4" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>

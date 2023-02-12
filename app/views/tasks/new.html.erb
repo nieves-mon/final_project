@@ -1,6 +1,8 @@
-<div class="formContainer">
-    
-                <h1 class="fw-bold">New Task</h1>
-                <hr/>
-                <%= render 'tasks/form', task: @task, url: project_tasks_path %>
+<div class="d-flex flex-wrap m-5 gap-4 justify-content-around align-items-center">
+    <div class="card p-3 border-0">
+        <%= link_to "< Back", project_path(@project.organization, @project), class: "text-decoration-none mb-2" %>
+        <h1 class="fw-bold">New Task</h1>
+        <hr/>
+        <%= render 'tasks/form', task: @task, url: project_tasks_path %>
+    </div>
 </div>

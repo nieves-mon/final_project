@@ -18,6 +18,7 @@ class User < ApplicationRecord
   validates_uniqueness_to_tenant :email
 
   scope :available_for_meeting, -> (meeting){ where.not(id: meeting.users).order(:email) }
+  scope :available_for_project, -> (project){ where.not(id: project.users).order(:email) }
 
   # List of user roles
   ROLES = [:admin, :meeting_manager, :project_manager]
