@@ -1,85 +1,65 @@
-<%= render "sidebar" %>
-
-<div class="mainContainer">
-
-  <h1><strong><%= @project.title %></strong></h1>
-
-  <p>
-    <%= link_to "Add People", new_project_project_participant_path(@project.organization_id, @project.id), class:"btn btn-primary text-light" %>
-    <%= link_to "Add Tasks", new_project_task_path(@project.organization_id, @project.id), class:"btn btn-primary text-light" %>
-  </p>
-
-  <div class="infoContainer mt-3">
-    <div class="containerTitle fw-bold">Project Information</div>
-
-    <div>
-      Complete:
-      <%= @project.complete %>
+<div class="d-flex flex-column m-5 gap-4 justify-content-around">
+  <div class="card p-3 border-0 w-100">
+    <div class="card-title d-flex align-items-center">
+      <% if current_user.project_manager? %>
+        <%= form_with model: @project, url: project_path(@project.organization, @project)  do |f| %>
+            <%= f.check_box :complete, onclick: "this.parentElement.submit();", class: "big-checkbox" %>
+        <% end %>
+      <% end %>
+      <h1 class="m-0 fw-bold"><%= @project.title %></h1>
     </div>
 
-    <% if current_user.project_manager? %>
-      <%= render 'completeform' %>
-    <% end %>
-
-    <div>
-      Start Date:
-      <%= @project.start_date %>
-    </div>
-
-    <div>
-      End Date:
-      <%= @project.end_date %>
-    </div>
-  </div>
-
-</div>
-
-<div class="infoContainer mt-3">
-    <div class="containerTitle fw-bold">Project Participants</div>
-    <div>
-      <% @project.users.each do |projectuser| %>
-        <div>
-          <%= projectuser.email %>
-          <span class="badge bg-info"><%= projectuser.active_roles.join(", ") %></span>
-        </div>
-        <div class="smallLink">
-          <%= link_to "Delete", project_project_participant_path(@project.organization_id, @project.id, projectuser.id),
-                title: "Delete #{projectuser.email}",
+    <div class="card-body p-0 mb-4">
+      <% if current_user.project_manager? %>
+        <%= link_to "Edit Details", edit_project_path(@project.organization, @project), class:"btn btn-primary text-light" %>
+        <%= link_to 'Delete Project', project_path(@project.organization, @project),
                 method: :delete,
-                data: { confirm: "Are you sure?" } %>
-        </div>
+                data: { confirm: "Are you sure?" },
+                class: "btn btn-danger" %>
       <% end %>
     </div>
+
+    <p class="text-muted card-subtitle"><%= @project.start_date.strftime("%^a %b %d, %Y") %> - <%= @project.end_date.strftime("%^a %b %d, %Y") %></p>
+    <h5 class="card-text fs-5 mt-2">Status: <%= project_status(@project) %></h5>
+
+    <div class="card-body p-0 mt-3 d-flex justify">
+      <%= link_to "View Project Participants", project_project_participant_path(@project.organization_id, @project.id), class:"btn btn-primary text-light" %>
+    </div>
   </div>
 
-  <div class="infoContainer mt-3">
-    <div class="containerTitle fw-bold">Tasks</div>
-    <table class="table table-striped">
-      <tbody>
-        <tr>
-          <th colspan="4">Overdue Tasks</th>
-        </tr>
-        <tr>
-          <td colspan="4"><%= render "task", tasks: @overdue_tasks, label: "Overdue" %></td>
-        </tr>
-        <tr>
-          <th colspan="4">Today Tasks</th>
-        </tr>
-        <tr colspan="4">
-          <td colspan="4"><%= render "task", tasks: @today_tasks, label: "Today" %></td>
-        </tr>
-        <tr>
-          <th colspan="4">Future Tasks</th>
-        </tr>
-        <tr colspan="4">
-          <td colspan="4"><%= render "task", tasks: @future_tasks, label: "Future" %></td>
-        </tr>
-        <tr>
-          <th colspan="4">Completed Tasks</th>
-        </tr>
-        <tr colspan="4">
-            <td colspan="4"><%= render "task", tasks: @completed_tasks, label: "Completed" %></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="card p-3 border-0 w-100">
+      <div class="card-body p-0 d-flex align-items-center gap-3 mb-4">
+        <h2 class="card-title fw-bold m-0">Tasks</h2>
+        <%= link_to "Add Task", new_project_task_path(@project.organization, @project), class:"btn btn-primary text-light" %>
+      </div>
+      <table class="table table-striped">
+        <tbody>
+          <tr>
+            <th colspan="4">Overdue Tasks</th>
+          </tr>
+          <tr>
+            <td colspan="4"><%= render "task", tasks: @overdue_tasks, label: "Overdue" %></td>
+          </tr>
+          <tr>
+            <th colspan="4">Today Tasks</th>
+          </tr>
+          <tr colspan="4">
+            <td colspan="4"><%= render "task", tasks: @today_tasks, label: "Today" %></td>
+          </tr>
+          <tr>
+            <th colspan="4">Future Tasks</th>
+          </tr>
+          <tr colspan="4">
+            <td colspan="4"><%= render "task", tasks: @future_tasks, label: "Future" %></td>
+          </tr>
+          <tr>
+            <th colspan="4">Completed Tasks</th>
+          </tr>
+          <tr colspan="4">
+              <td colspan="4"><%= render "task", tasks: @completed_tasks, label: "Completed" %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+</div>
