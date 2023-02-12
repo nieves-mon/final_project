@@ -23,7 +23,7 @@
     <h5 class="card-text fs-5 mt-2">Status: <%= project_status(@project) %></h5>
 
     <div class="card-body p-0 mt-3 d-flex justify">
-      <%= link_to "View Project Participants", project_project_participant_path(@project.organization_id, @project.id), class:"btn btn-primary text-light" %>
+      <%= link_to "View Project Participants", project_project_participants_path(@project.organization_id, @project.id), class:"btn btn-primary text-light" %>
     </div>
   </div>
 
