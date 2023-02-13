@@ -2,11 +2,11 @@ class HomeController < ApplicationController
   # skip_before_action :set_organization
   include SetOrganization
   include RequireOrganization
-  
+
   def dashboard
     @organization = current_user.organization
-    @projects = current_user.projects
-    @meetings = current_user.meetings
-    @tasks = current_user.tasks
+    @num_projects = current_user.projects.not_complete.count
+    @num_meetings = current_user.meetings.today.count
+    @tasks = current_user.tasks.pending.order(:duedate)
   end
 end

@@ -1,15 +1,19 @@
 <% if tasks.count == 0 %>
-    <p class="text-muted text-center fst-italic">No <%= label %> Tasks</p>
+    <% if label == "My Tasks" %>
+        <p class="m-0 fw-semibold fst-italic fs-4 text-center">You have no pending tasks</p>
+    <% else %>
+        <p class="text-muted text-center fst-italic">No <%= label %> Tasks</p>
+    <% end %>
 <% else %>
     <table class="table mb-0">
         <% tasks.each do |task| %>
             <tr class="d-flex flex-row">
                 <td>
-                    <%= form_with model: task, url: project_task_path(@project.organization, @project, task)  do |f| %>
+                    <%= form_with model: task, url: project_task_path(current_tenant, task.project, task)  do |f| %>
                         <%= f.check_box :completed, onclick: "this.parentElement.submit();" %>
                     <% end %>
                 </td>
-                <th scope="row"><%= link_to task.title, project_task_path(@project.organization, @project, task) %></th>
+                <th scope="row"><%= link_to task.title, project_task_path(current_tenant, task.project, task) %></th>
                 <td class="flex-grow-1 text-center"><%= task.duedate.strftime("%a, %b %d") %></td>
                 <td>
                     <% if task.user.nil? %>
