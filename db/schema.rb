@@ -93,12 +93,6 @@ ActiveRecord::Schema.define(version: 2023_01_13_085044) do
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
-  create_table "tenants", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "user_meetings", force: :cascade do |t|
     t.bigint "meeting_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -124,7 +118,6 @@ ActiveRecord::Schema.define(version: 2023_01_13_085044) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.bigint "organization_id"
-    t.bigint "tenant_id"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -138,7 +131,6 @@ ActiveRecord::Schema.define(version: 2023_01_13_085044) do
     t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["roles"], name: "index_users_on_roles", using: :gin
-    t.index ["tenant_id"], name: "index_users_on_tenant_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -148,5 +140,4 @@ ActiveRecord::Schema.define(version: 2023_01_13_085044) do
   add_foreign_key "tasks", "projects"
   add_foreign_key "user_meetings", "meetings"
   add_foreign_key "users", "organizations"
-  add_foreign_key "users", "tenants"
 end
