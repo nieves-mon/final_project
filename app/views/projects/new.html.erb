@@ -1,5 +1,9 @@
-<div class="formContainer" id="form1">
-    <h1 class="fw-bold">New Project</h1>
-    <hr/>
-    <%= render 'projects/form' %>
+<div class="d-flex flex-wrap m-5 gap-4 justify-content-around align-items-center">
+    <div class="card p-3 border-0">
+        <%= link_to "< Back", projects_path(current_tenant), class: "text-decoration-none mb-2" %>
+
+        <h1 class="fw-bold">New Project</h1>
+        <hr/>
+        <%= render 'projects/form' %>
+    </div>
 </div>
