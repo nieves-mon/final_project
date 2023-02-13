@@ -38,10 +38,10 @@
             </td>
             <% if current_user.admin? %>
               <td>
-                <%= link_to 'Edit', edit_user_path(user) %>
+                <%= link_to 'Edit', edit_user_path(user), class: "btn btn-primary" %>
               </td>
               <td>
-                <%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: "Are you sure?" } %>
+                <%= link_to 'Remove', user_path(user), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } %>
               </td>
             <% else %>
               <td></td>
